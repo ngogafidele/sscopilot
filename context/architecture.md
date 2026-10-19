@@ -2,6 +2,7 @@
 
 ## Stack
 
+
 | Layer | Tool | Purpose |
 | --- | --- | --- |
 | Framework | Next.js 16 App Router | Pages, layouts, route handlers, server rendering |
