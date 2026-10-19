@@ -10,25 +10,22 @@ import { CreateProductSchema } from "@/lib/db/validators/product"
 import { syncLowStockAlert } from "@/lib/db/alerts"
 import { generateProductSku } from "@/lib/db/product-sku"
 import { readCellValue } from "@/lib/excel/workbook"
+import {
+  PRODUCT_IMPORT_COLUMNS,
+  PRODUCT_IMPORT_MAX_ROWS,
+  type ProductImportField,
+} from "@/lib/excel/product-import-columns"
 
 export const runtime = "nodejs"
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024
-const MAX_ROWS = 2000
+const MAX_ROWS = PRODUCT_IMPORT_MAX_ROWS
 
-type ImportField =
-  | "name"
-  | "sku"
-  | "unit"
-  | "quantity"
-  | "lowStockThreshold"
-  | "costPrice"
-  | "price"
-  | "supplierName"
-  | "supplierPhone"
+type ImportField = ProductImportField
 
 // Accepted header spellings, compared after lowercasing and dropping units such
-// as "(Rwf)" and punctuation, so a file from Export Excel imports unchanged.
+// as "(Rwf)" and punctuation, so a file from Export Excel or the downloadable
+// template imports unchanged.
 const HEADER_ALIASES: Record<string, ImportField> = {
   product: "name",
   name: "name",
@@ -52,11 +49,9 @@ const HEADER_ALIASES: Record<string, ImportField> = {
   supplierphone: "supplierPhone",
 }
 
-const REQUIRED_FIELDS: Array<[ImportField, string]> = [
-  ["name", "Product"],
-  ["costPrice", "Cost Price"],
-  ["price", "Selling Price"],
-]
+const REQUIRED_FIELDS: Array<[ImportField, string]> = PRODUCT_IMPORT_COLUMNS
+  .filter((column) => column.required)
+  .map((column) => [column.field, column.label.replace(/\s*\(.*?\)/g, "")])
 
 type RowIssue = { row: number; name: string; reason: string }
 

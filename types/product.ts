@@ -1,4 +1,6 @@
 // Describes a product and its branch-specific inventory values.
+import type { StoreKey } from "@/lib/utils/constants"
+
 export type Product = {
   id: string
   name: string
@@ -8,5 +10,5 @@ export type Product = {
   lowStockThreshold: number
   costPrice: number
   price: number
-  store: "store1" | "store2"
+  store: StoreKey
 }

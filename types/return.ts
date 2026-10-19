@@ -1,4 +1,6 @@
 // Describes returned items and recorded branch return transactions.
+import type { StoreKey } from "@/lib/utils/constants"
+
 export type ReturnItem = {
   productId: string
   name: string
@@ -12,7 +14,7 @@ export type ReturnItem = {
 
 export type Return = {
   id: string
-  store: "store1" | "store2"
+  store: StoreKey
   returnItems: ReturnItem[]
   totalReturnAmount: number
   notes?: string

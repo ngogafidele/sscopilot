@@ -1,5 +1,6 @@
 // Persists customer invoices generated from sales or proformas.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const InvoiceItemSchema = new Schema(
   {
@@ -17,7 +18,7 @@ const InvoiceSchema = new Schema(
   {
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     saleId: { type: Schema.Types.ObjectId, ref: "Sale" },

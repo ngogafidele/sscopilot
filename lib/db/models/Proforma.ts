@@ -1,5 +1,6 @@
 // Persists branch quotation documents issued before or alongside sales.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const ProformaItemSchema = new Schema(
   {
@@ -16,7 +17,7 @@ const ProformaSchema = new Schema(
   {
     storeId: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     saleId: { type: Schema.Types.ObjectId, ref: "Sale" },

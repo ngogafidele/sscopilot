@@ -97,7 +97,7 @@ const navigationItems: NavigationItem[] = [
   {
     href: "/expenses",
     label: "Expenses",
-    description: "Track operating costs for the current store.",
+    description: "Track operating costs for the store.",
     icon: Wallet,
     group: "Operations",
     accent: "border-warning/35 bg-warning/5 hover:border-warning/60",

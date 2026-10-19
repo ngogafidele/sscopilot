@@ -304,7 +304,7 @@ export function InvoicesManager({
             body {
               margin: 0;
               padding: 36px;
-              color: #111827;
+              color: #0a0a0a;
               font-family: Arial, sans-serif;
               background: #ffffff;
             }
@@ -312,7 +312,7 @@ export function InvoicesManager({
               display: flex;
               justify-content: space-between;
               gap: 32px;
-              border-bottom: 2px solid #f08010;
+              border-bottom: 2px solid #136b52;
               padding-bottom: 18px;
               margin-bottom: 28px;
             }
@@ -327,7 +327,7 @@ export function InvoicesManager({
             }
             p {
               margin: 0 0 5px;
-              color: #5f6673;
+              color: #565c59;
               font-size: 13px;
             }
             .invoice-meta {
@@ -341,7 +341,7 @@ export function InvoicesManager({
               margin-bottom: 28px;
             }
             .panel {
-              border: 1px solid #d8dee8;
+              border: 1px solid #dfe3e1;
               padding: 16px;
               min-height: 112px;
             }
@@ -351,21 +351,21 @@ export function InvoicesManager({
               font-size: 12px;
             }
             th {
-              background: #eef3f8;
-              color: #00183d;
+              background: #e7f2ee;
+              color: #0a0a0a;
               text-align: left;
-              border: 1px solid #cbd7e6;
+              border: 1px solid #cfd5d2;
               padding: 10px 8px;
             }
             td {
-              border: 1px solid #d8dee8;
+              border: 1px solid #dfe3e1;
               padding: 9px 8px;
               vertical-align: top;
             }
             td span {
               display: block;
               margin-top: 3px;
-              color: #6b7280;
+              color: #565c59;
               font-size: 11px;
             }
             .total {
@@ -375,9 +375,9 @@ export function InvoicesManager({
             }
             .total div {
               min-width: 260px;
-              border: 1px solid #cbd7e6;
+              border: 1px solid #cfd5d2;
               padding: 16px;
-              background: #fbfcfe;
+              background: #f7f9f8;
             }
             .total strong {
               display: flex;

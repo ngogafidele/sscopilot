@@ -1,9 +1,9 @@
-# Demo Inventory System - System Reference
+# Supply and Service Copilot Ltd - System Reference
 
 ## 1. Purpose
 
-Demo Inventory System supports the operation of two physical retail branches:
-**Gisozi** and **Kinyinya**. The system records stock movement, sales revenue,
+Supply and Service Copilot Ltd supports the operation of a single physical
+retail store. The system records stock movement, sales revenue,
 credit exposure, expenses, and printable customer or management documents.
 
 This document describes implemented behavior. It is intended for product
@@ -24,14 +24,15 @@ Operating profit = gross profit - recorded expenses
 Receivables = unpaid loan sales awaiting collection
 ```
 
-## 3. Branch Model
+## 3. Store Model
 
-| Key | Branch | PDF Address |
+| Key | Store | PDF Address |
 | --- | --- | --- |
-| `store1` | Gisozi | xxxxxxx |
-| `store2` | Kinyinya | xxxxxxx |
+| `store1` | Main Store | xxxxxxx |
 
-Branch separation is a core control:
+The business runs a single store. Every record is still tagged with the store key `store1` and every query is scoped to it, so a second store can be added later by adding a key, label, and address in `lib/utils/constants.ts`. The admin store switcher and the user-management store picker only appear when more than one store is configured.
+
+Store scoping remains a core control:
 
 - Products and on-hand quantities are branch-specific.
 - Sales, returns, invoices, expenses, alerts, and adjustments belong to one
@@ -44,7 +45,7 @@ Branch separation is a core control:
 
 ### Administrator
 
-The administrator can operate across both stores and access restricted
+The administrator has access to restricted
 management functionality, including the dashboard, reports, user management,
 stock adjustments, product administration, and corrective sale deletion.
 

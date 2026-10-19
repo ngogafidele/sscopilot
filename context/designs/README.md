@@ -1,6 +1,6 @@
 # Designs
 
-This folder stores visual references for Demo Inventory System.
+This folder stores visual references for Supply and Service Copilot Ltd.
 
 No design screenshots are currently stored here. When adding screenshots, name them after the implemented screen, for example:
 

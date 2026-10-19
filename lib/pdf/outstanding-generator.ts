@@ -95,11 +95,11 @@ const stampPath = path.join(process.cwd(), "public", "images", "stamp.jpg")
 const logoBox = {
   x: 42,
   y: 24,
-  width: 174,
-  height: 174,
+  width: 84,
+  height: 84,
   imageX: 48,
   imageY: 30,
-  imageFit: [162, 162] as [number, number],
+  imageFit: [72, 72] as [number, number],
 }
 
 const stampBox = {
@@ -110,16 +110,17 @@ const stampBox = {
 }
 
 const paymentMethodsLines = [
-  "Bank Account: xxxxxxx",
-  "TIN: xxxxxxx",
-  "Tel No: xxxxxxx",
+  "TIN: 146846113",
+  "Tel No: 0788 752310",
   "",
-  "Demo Inventory System",
+  "Supply and Service Copilot Ltd",
 ]
 
-const PRINT_TEXT = "#111827"
-const PRINT_MUTED_TEXT = "#1f2937"
-const PRINT_HEADER_TEXT = "#00183d"
+const PRINT_TEXT = "#0a0a0a"
+const PRINT_MUTED_TEXT = "#3f4441"
+const PRINT_HEADER_TEXT = "#0a0a0a"
+// Emerald signature rule under the document header (Ink & Emerald palette).
+const PRINT_BRAND = "#136b52"
 const TABLE_ROW_HEIGHT = 24
 
 function mutedText(doc: OutstandingPdfDocument) {
@@ -175,7 +176,7 @@ function drawLogo(doc: OutstandingPdfDocument, storeInfo: StoreInfo) {
         .font("Helvetica-Bold")
         .fontSize(16)
         .fillColor(PRINT_HEADER_TEXT)
-        .text(storeInfo.name ?? "Inventory", 48, 72, { width: 150 })
+        .text(storeInfo.name ?? "Inventory", 48, 40, { width: 150 })
     }
   }
 }
@@ -297,7 +298,7 @@ export function generateOutstandingCustomerPDF(
       align: "right",
     })
 
-  doc.moveTo(48, separatorY).lineTo(547, separatorY).lineWidth(1.5).strokeColor("#f08010").stroke()
+  doc.moveTo(48, separatorY).lineTo(547, separatorY).lineWidth(1.5).strokeColor(PRINT_BRAND).stroke()
 
   const contentStart = separatorY + 20
 
@@ -326,7 +327,7 @@ export function generateOutstandingCustomerPDF(
 
   doc
     .rect(48, tableTop, 499, 24)
-    .fillColor("#eef3f8")
+    .fillColor("#e7f2ee")
     .fill()
     .font("Helvetica-Bold")
     .fillColor(PRINT_HEADER_TEXT)
@@ -357,7 +358,7 @@ export function generateOutstandingCustomerPDF(
     const amount = truncateToWidth(doc, formatCurrency(row.amount), 60)
 
     doc
-      .fillColor(index % 2 === 0 ? "#ffffff" : "#fbfcfe")
+      .fillColor(index % 2 === 0 ? "#ffffff" : "#f7f9f8")
       .rect(48, y - 6, 499, TABLE_ROW_HEIGHT)
       .fill()
       .font("Helvetica")
@@ -385,7 +386,7 @@ export function generateOutstandingCustomerPDF(
 
     doc
       .rect(48, y, 499, 24)
-      .fillColor("#eef3f8")
+      .fillColor("#e7f2ee")
       .fill()
       .font("Helvetica-Bold")
       .fillColor(PRINT_HEADER_TEXT)
@@ -404,7 +405,7 @@ export function generateOutstandingCustomerPDF(
       }
 
       doc
-        .fillColor(index % 2 === 0 ? "#ffffff" : "#fbfcfe")
+        .fillColor(index % 2 === 0 ? "#ffffff" : "#f7f9f8")
         .rect(48, y - 6, 499, TABLE_ROW_HEIGHT)
         .fill()
         .font("Helvetica")
@@ -441,7 +442,7 @@ export function generateOutstandingCustomerPDF(
   doc
     .moveTo(48, y)
     .lineTo(547, y)
-    .strokeColor("#d8dee8")
+    .strokeColor("#dfe3e1")
     .stroke()
     .font("Helvetica-Bold")
     .fontSize(12)

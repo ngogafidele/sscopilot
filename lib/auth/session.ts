@@ -3,9 +3,9 @@ import jwt from "jsonwebtoken"
 import type { NextRequest } from "next/server"
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies"
 import { getIdleTimeoutSeconds, isSessionIdleExpired } from "@/lib/auth/idle"
+import { STORE_KEYS, type StoreKey } from "@/lib/utils/constants"
 
-export const STORE_KEYS = ["store1", "store2"] as const
-export type StoreKey = (typeof STORE_KEYS)[number]
+export { STORE_KEYS, type StoreKey }
 
 export const AUTH_COOKIE = "auth"
 

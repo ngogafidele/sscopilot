@@ -1,5 +1,6 @@
 // Persists authenticated users, roles, active status, and store assignments.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const UserSchema = new Schema(
   {
@@ -16,7 +17,7 @@ const UserSchema = new Schema(
     stores: [
       {
         type: String,
-        enum: ["store1", "store2"],
+        enum: [...STORE_KEYS],
         required: true,
       },
     ],

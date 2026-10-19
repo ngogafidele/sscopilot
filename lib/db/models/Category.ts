@@ -1,5 +1,6 @@
 // Persists product categorization scoped to an owning branch.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const CategorySchema = new Schema(
   {
@@ -7,7 +8,7 @@ const CategorySchema = new Schema(
     description: { type: String, default: "" },
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
   },

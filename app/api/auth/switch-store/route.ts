@@ -8,6 +8,7 @@ import {
   getAuthCookieOptions,
   refreshSessionActivity,
   updateCurrentStore,
+  STORE_KEYS,
   type StoreKey,
 } from "@/lib/auth/session"
 
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { store } = (await request.json()) as { store?: StoreKey }
-    if (!store || !["store1", "store2"].includes(store)) {
+    if (!store || !STORE_KEYS.includes(store)) {
       return NextResponse.json(
         { success: false, error: "Invalid store" },
         { status: 400 }
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
     }
 
     const allowedStores: StoreKey[] = session.isAdmin
-      ? ["store1", "store2"]
+      ? [...STORE_KEYS]
       : session.stores
 
     if (!allowedStores.includes(store)) {

@@ -12,8 +12,10 @@ import {
   AUTH_COOKIE,
   createToken,
   getAuthCookieOptions,
+  isStoreKey,
   type AuthSession,
 } from "@/lib/auth/session"
+import { STORE_KEYS } from "@/lib/utils/constants"
 import { ZodError } from "zod"
 
 export async function POST(request: NextRequest) {
@@ -37,6 +39,13 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       )
     }
+
+    // Drop store assignments that no longer exist (the business once ran two
+    // stores). Saving with a retired key would fail schema validation and
+    // block sign-in, and a user left with no store would be locked out, so
+    // anyone without a current store is placed in the business's store.
+    const validStores = (user.stores as string[]).filter(isStoreKey)
+    user.stores = validStores.length > 0 ? validStores : [...STORE_KEYS]
 
     const loginAt = new Date()
     user.lastLogin = loginAt

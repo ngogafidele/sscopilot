@@ -1,6 +1,6 @@
 # Library Docs
 
-Project-specific usage notes for third-party libraries in Demo Inventory System.
+Project-specific usage notes for third-party libraries in Supply and Service Copilot Ltd.
 
 ---
 

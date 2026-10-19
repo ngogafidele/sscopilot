@@ -7,7 +7,7 @@ Update this file after meaningful feature work. It should let the next agent see
 ## Current Status
 
 **Phase:** Production maintenance and feature iteration  
-**Last documented:** 2026-09-07 context refresh against the current two-store Demo Inventory System structure  
+**Last documented:** 2026-09-07 context refresh against the Supply and Service Copilot Ltd structure; 2026-10-19 switched to a single store  
 **Next:** Keep context files updated after future feature changes
 
 ---
@@ -17,8 +17,8 @@ Update this file after meaningful feature work. It should let the next agent see
 - [x] Login, setup admin, logout, password reset, and password re-verification
 - [x] JWT session cookie, idle timeout refresh, current-user validation, and lapsed logout recording
 - [x] Strict admin gate for `/dashboard`, `/reports`, `/financial-statements`, and matching API paths
-- [x] Authenticated app shell with role-aware sidebar, loan notifications, user badge, logout, and admin store switcher
-- [x] Two-store model: `store1` Store 1 and `store2` Store 2, with anonymized document addresses
+- [x] Authenticated app shell with role-aware sidebar, loan notifications, user badge, logout, and admin store switcher (hidden while only one store exists)
+- [x] Single-store model: `store1` Main Store; `store2` retired. `STORE_KEYS` in `lib/utils/constants.ts` drives models, validators, and types
 - [x] Authenticated `/home` workspace hub with grouped navigation cards
 - [x] Product catalog, SKU generation, receiving, supplier receipt tracking, categories, and product catalog PDF
 - [x] Admin product stock movement monitor using receipts, sales/loans, returns/replacements, and stock adjustments
@@ -29,6 +29,7 @@ Update this file after meaningful feature work. It should let the next agent see
 - [x] Sales invoices and proforma invoices with PDF downloads
 - [x] Admin-only Excel exports (ExcelJS) for the products list (`/api/products/export`) and date-ranged sales (`/api/sales/export?start=&end=`)
 - [x] Admin-only product import from Excel (`/api/products/import`): new names only; rows whose name/SKU already exists in the store, or repeat within the file, are skipped and reported
+- [x] Downloadable product import template (`/api/products/import/template`): Products sheet with emerald required / grey optional headers, header notes, and number validation, plus an Instructions sheet. Columns come from `lib/excel/product-import-columns.ts`, which the import route also reads, so the two cannot drift
 - [x] Expenses and categories
 - [x] Dashboard and visual reports with cards, charts, store summary, top products, recent sales, and report PDF
 - [x] Financial Reports section: Income Statement and Balance Sheet with PDF export
@@ -41,8 +42,9 @@ Update this file after meaningful feature work. It should let the next agent see
 
 ## Operational Notes
 
-- Store keys are `store1` and `store2`; labels and document addresses live in `lib/utils/constants.ts`.
-- Administrators can switch stores through `components/store-switcher.tsx`; route handlers must still resolve and enforce store access.
+- The only store key is `store1`; its label and document address live in `lib/utils/constants.ts`. Login drops retired store keys from user records and assigns store-less users to `store1`.
+- Any existing `store2` records in MongoDB are no longer shown or counted anywhere; they need a decision (merge into `store1` or archive).
+- `components/store-switcher.tsx` is kept but only renders with multiple stores; route handlers must still resolve and enforce store access.
 - Product stock is affected by sales, sale edits, sale deletion/restoration, returns, stock receiving, and stock adjustments.
 - Staff and managers may edit sales they created where the route allows it; administrators have broader correction and deletion privileges.
 - Low-stock alerts must stay synchronized after inventory mutations.

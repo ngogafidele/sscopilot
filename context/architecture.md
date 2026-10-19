@@ -161,7 +161,7 @@ Financially sensitive admin paths (`/dashboard`, `/reports`, `/financial-stateme
 
 ## Invariants
 
-- Every operational record is scoped to `store1` or `store2`.
+- Every operational record is scoped to a store key from `STORE_KEYS` in `lib/utils/constants.ts` (currently only `store1`). Models, validators, and types all derive from that list.
 - Never read or mutate operational data without resolving and applying the authorized store.
 - Never reduce stock below zero.
 - All inventory-changing operations must sync low-stock alerts.
@@ -170,5 +170,5 @@ Financially sensitive admin paths (`/dashboard`, `/reports`, `/financial-stateme
 - Keep Reports and Income Statement revenue/COGS/profit formulas in sync.
 - Treat `BalanceSheetItem` as append-only version history; do not mutate or hard-delete prior versions.
 - Use `formatInKigali`, `formatKigaliDateInput`, and `parseKigaliDateInput` for business dates.
-- PDF generators must use anonymized Demo Inventory System identity and document assets from `public/images`.
+- PDF generators must use the Supply and Service Copilot Ltd identity and document assets from `public/images`.
 - Before changing Next.js conventions, read the relevant installed docs in `node_modules/next/dist/docs/`.

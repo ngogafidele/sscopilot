@@ -1,6 +1,6 @@
 # Build Plan
 
-This file describes implemented product areas and the safest order for future work. Demo Inventory System is already a functional application; new work should preserve existing operational behavior instead of treating this as a greenfield plan.
+This file describes implemented product areas and the safest order for future work. Supply and Service Copilot Ltd is already a functional application; new work should preserve existing operational behavior instead of treating this as a greenfield plan.
 
 ---
 
@@ -36,7 +36,7 @@ Build UI and data changes together only when the workflow can be verified end to
 
 - Sticky header with logo, user badge, loan notifications, logout
 - Role-aware sidebar
-- Admin store switcher for anonymized Store 1 and Store 2
+- Single store (`store1`, Main Store); the admin store switcher only renders when more than one store is configured
 - Authenticated `/home` workspace hub with grouped role-aware navigation cards
 - Main content shell
 - Admin and non-admin navigation differences

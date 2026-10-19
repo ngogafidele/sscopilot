@@ -76,15 +76,15 @@ export default function SetupAdminPage() {
           sizes="100vw"
           className="object-cover opacity-52"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,249,252,0.54)_0%,rgba(247,249,252,0.34)_48%,rgba(247,249,252,0.22)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--brand-navy)_6%,transparent),transparent_50%,color-mix(in_srgb,var(--brand-orange)_4%,transparent))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(244,246,245,0.6)_0%,rgba(244,246,245,0.38)_48%,rgba(244,246,245,0.2)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--brand-emerald)_10%,transparent),transparent_55%)]" />
       </div>
       <main className="mx-auto grid min-h-screen max-w-6xl items-center gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-10">
         <section className="rounded-xl border border-border/80 bg-card p-5 shadow-xl sm:p-7">
           <Button
             asChild
             variant="outline"
-            className="mb-6 h-11 border-[var(--brand-navy)] text-[var(--brand-navy)] hover:bg-[var(--brand-navy)] hover:text-white"
+            className="mb-6 h-11 border-[var(--brand-black)] text-[var(--brand-black)] hover:bg-[var(--brand-black)] hover:text-white"
           >
             <Link href="/">
               <ArrowLeft className="size-4" />
@@ -93,10 +93,10 @@ export default function SetupAdminPage() {
           </Button>
 
           <div className="mb-6">
-            <div className="mb-3 flex size-10 items-center justify-center rounded-lg bg-[var(--brand-orange)] text-[var(--brand-navy)]">
+            <div className="mb-3 flex size-10 items-center justify-center rounded-lg bg-[var(--brand-emerald)] text-white">
               <ShieldCheck className="size-5" />
             </div>
-            <h1 className="text-2xl font-semibold text-[var(--brand-navy)]">
+            <h1 className="text-2xl font-semibold text-[var(--brand-black)]">
               Create admin account
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -208,7 +208,7 @@ export default function SetupAdminPage() {
             </label>
 
             <Button
-              className="h-11 w-full bg-[var(--brand-orange)] font-semibold text-[var(--brand-navy)] hover:bg-[var(--brand-orange)]/90"
+              className="h-11 w-full bg-[var(--brand-black)] font-semibold text-white hover:bg-[var(--brand-black)]/90"
               disabled={isPending}
             >
               {isPending ? "Creating admin..." : "Create admin"}
@@ -218,7 +218,7 @@ export default function SetupAdminPage() {
           <Button
             asChild
             variant="outline"
-            className="mt-4 h-11 w-full border-[var(--brand-navy)] text-[var(--brand-navy)] hover:bg-[var(--brand-navy)] hover:text-white"
+            className="mt-4 h-11 w-full border-[var(--brand-black)] text-[var(--brand-black)] hover:bg-[var(--brand-black)] hover:text-white"
           >
             <Link href="/">
               <ArrowLeft className="size-4" />
@@ -232,7 +232,7 @@ export default function SetupAdminPage() {
             <div className="flex size-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/80 bg-white shadow-sm">
               <Image
                 src="/images/logo.png"
-                alt="Demo Inventory System logo"
+                alt="Supply and Service Copilot Ltd logo"
                 width={96}
                 height={96}
                 priority
@@ -240,10 +240,10 @@ export default function SetupAdminPage() {
               />
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase text-[var(--brand-orange-text)]">
+              <p className="text-sm font-semibold uppercase text-[var(--brand-emerald-strong)]">
                 Initial system setup
               </p>
-              <h2 className="text-3xl font-semibold text-[var(--brand-navy)] sm:text-4xl">
+              <h2 className="text-3xl font-semibold text-[var(--brand-black)] sm:text-4xl">
                 One admin opens the whole workspace.
               </h2>
             </div>
@@ -251,7 +251,7 @@ export default function SetupAdminPage() {
 
           <div className="space-y-3">
             {[
-              "Secure access for Demo Inventory System daily operations.",
+              "Secure access for Supply and Service Copilot Ltd daily operations.",
               "Store teams start from one trusted admin account.",
               "Inventory, sales, invoices, and alerts stay connected.",
             ].map((item) => (
@@ -259,7 +259,7 @@ export default function SetupAdminPage() {
                 key={item}
                 className="flex items-start gap-3 rounded-lg border border-border/80 bg-white/70 p-4 text-sm text-muted-foreground shadow-sm"
               >
-                <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-[var(--brand-orange-text)]" />
+                <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-[var(--brand-emerald-strong)]" />
                 <span>{item}</span>
               </div>
             ))}

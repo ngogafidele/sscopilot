@@ -1,7 +1,9 @@
 // Describes expense data exchanged between UI and branch APIs.
+import type { StoreKey } from "@/lib/utils/constants"
+
 export type Expense = {
   id: string
-  store: "store1" | "store2"
+  store: StoreKey
   description: string
   amount: number
   category: string

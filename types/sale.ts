@@ -1,4 +1,6 @@
 // Describes sales records and their line-item value snapshots.
+import type { StoreKey } from "@/lib/utils/constants"
+
 export type SaleItem = {
   id: string
   name: string
@@ -10,7 +12,7 @@ export type SaleItem = {
 
 export type Sale = {
   id: string
-  store: "store1" | "store2"
+  store: StoreKey
   items: SaleItem[]
   totalAmount: number
   paymentStatus?: "paid" | "unpaid"

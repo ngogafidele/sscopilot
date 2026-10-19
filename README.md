@@ -1,14 +1,13 @@
-# Demo Inventory System
+# Supply and Service Copilot Ltd
 
-Demo Inventory System is a two-branch inventory, sales, and receivables
-management application for **Gisozi** and **Kinyinya**. It supports the daily
-operation of a physical-goods business: stock control, direct and credit
-sales, returns, invoicing, expenses, alerts, and branch-level performance
-reporting.
+Supply and Service Copilot Ltd is a single-store inventory, sales, and
+receivables management application. It supports the daily operation of a
+physical-goods business: stock control, direct and credit sales, returns,
+invoicing, expenses, alerts, and performance reporting.
 
 ## Business Capabilities
 
-- Manage branch-specific products, costs, selling prices, quantities, and low
+- Manage products, costs, selling prices, quantities, and low
   stock thresholds.
 - Record paid sales through cash, bank, or mobile money.
 - Record unpaid sales as customer loans with an expected payment date and
@@ -16,23 +15,17 @@ reporting.
 - Process returns and restore returned items to stock.
 - Produce sales invoices, proforma invoices, product catalogs, outstanding
   statements, and management reports in PDF format.
-- Record operating expenses and calculate net branch performance.
+- Record operating expenses and calculate net performance.
 - Notify users of loans that are due today or overdue.
-- Give administrators control of users, stock adjustments, analytics, and
-  branch switching.
+- Give administrators control of users, stock adjustments, and analytics.
 
-## Stores
+## Store
 
-Application data is isolated by store:
-
-| Internal Key | Branch | Document Address |
+| Internal Key | Store | Document Address |
 | --- | --- | --- |
-| `store1` | Gisozi | xxxxxxx |
-| `store2` | Kinyinya | xxxxxxx |
+| `store1` | Main Store | xxxxxxx |
 
-Products, sales, returns, invoices, expenses, receivables, alerts, and report
-calculations are scoped to the selected branch. Administrators can switch
-branches; other users operate in their assigned store.
+The business runs a single store. Every record is still tagged with the store key `store1` and every query is scoped to it, so a second store can be added later by adding a key, label, and address in `lib/utils/constants.ts`. The admin store switcher and the user-management store picker only appear when more than one store is configured.
 
 ## Technology
 
@@ -99,7 +92,7 @@ and product movement. Financial dates are interpreted in Kigali time.
 
 | Role | Typical Access |
 | --- | --- |
-| Admin | All operational screens, users, stock adjustments, analytics, reports, branch switching, correction/deletion actions |
+| Admin | All operational screens, users, stock adjustments, analytics, reports, correction/deletion actions |
 | Manager | Assigned-store daily operations and permitted invoice management |
 | Staff | Assigned-store operational recording and viewing workflows |
 

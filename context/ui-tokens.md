@@ -1,6 +1,6 @@
 # UI Tokens
 
-Demo Inventory System uses Tailwind CSS 4 tokens declared in `app/globals.css`. The app also imports `tw-animate-css` and `shadcn/tailwind.css`.
+Supply and Service Copilot Ltd uses Tailwind CSS 4 tokens declared in `app/globals.css`. The app also imports `tw-animate-css` and `shadcn/tailwind.css`.
 
 ---
 
@@ -10,30 +10,34 @@ All core colors and radii are CSS variables in `:root` and mapped into Tailwind 
 
 ```css
 :root {
-  --background: #f7f9fc;
-  --foreground: #111827;
+  --background: #f4f6f5;
+  --foreground: #0a0a0a;
   --card: #ffffff;
-  --card-foreground: #111827;
-  --popover: #ffffff;
-  --popover-foreground: #111827;
-  --primary: #002050;
+  --primary: #0a0a0a;          /* black: buttons, active nav */
   --primary-foreground: #ffffff;
-  --secondary: #edf2f8;
-  --secondary-foreground: #00183d;
-  --muted: #eef3f8;
-  --muted-foreground: #5f6673;
-  --accent: #f08010;
-  --accent-foreground: #ffffff;
-  --success: #12805c;
-  --warning: #b7791f;
-  --border: #d8dee8;
-  --input: #cbd7e6;
-  --ring: #f08010;
-  --chart-1: #002050;
-  --chart-2: #f08010;
-  --chart-3: #3a5578;
-  --chart-4: #505050;
-  --chart-5: #f4a340;
+  --secondary: #eef1ef;
+  --muted: #eef1ef;
+  --muted-foreground: #565c59;
+  --brand: #136b52;            /* emerald signature */
+  --brand-foreground: #ffffff;
+  --brand-soft: #e7f2ee;
+  --brand-strong: #0d4d3b;
+  --accent: var(--brand-soft); /* hover/selected rows in menus */
+  --accent-foreground: var(--brand-strong);
+  --success: #136b52;
+  --warning: #b45309;
+  --border: #dfe3e1;
+  --input: #cfd5d2;
+  --ring: #136b52;
+  --chart-1: #136b52;
+  --chart-2: #8c8c8c;
+  --chart-3: #0a0a0a;
+  --chart-4: #5ea98f;
+  --chart-5: #cfd5d2;
+  --viz-revenue: #0a0a0a;
+  --viz-cost: #8c8c8c;
+  --viz-profit: #136b52;
+  --viz-loss: #c62828;
   --radius: 0.8rem;
 }
 ```
@@ -53,22 +57,42 @@ Tailwind token classes include:
 
 ---
 
-## Brand Palette
+## Brand Palette: Ink & Emerald
 
-| Purpose | Token | Value |
+This palette was chosen on 2026-10-19 so this client's product is clearly different from the earlier navy/orange project it was derived from. The black-and-white company stamp carries the identity; one deep emerald (`#136b52`, tuned to the green racking in `public/images/auth-background.webp`) is the only signature hue.
+
+| Role | Token / utility | Value |
 | --- | --- | --- |
-| Page background | `--background` | `#f7f9fc` |
-| Text | `--foreground` | `#111827` |
+| Primary actions, active nav | `--primary`, `bg-primary` | `#0a0a0a` |
+| Signature accent | `--brand`, `bg-brand`, `text-brand`, `border-brand` | `#136b52` |
+| Soft accent surface (menu hover, table headers) | `--brand-soft`, `--accent` | `#e7f2ee` |
+| Accent text on soft surface | `--brand-strong` | `#0d4d3b` |
+| Focus ring | `--ring` | `#136b52` |
+| Page background | `--background` | `#f4f6f5` |
+| Muted text | `--muted-foreground` | `#565c59` |
+| Border / input | `--border`, `--input` | `#dfe3e1`, `#cfd5d2` |
+| Success (paid) | `--success` | `#136b52` |
+| Warning (due, loans) | `--warning` | `#b45309` |
+| Destructive (errors, loss) | `--destructive` | red |
+
+Signature details: active sidebar item is black with a 3px emerald inset rule; the home hero ring and section markers are emerald; every PDF has an emerald rule under its header and soft-emerald table headers.
+
+Auth screens (`.brand-auth-surface`) define `--brand-black`, `--brand-emerald`, `--brand-emerald-strong`, `--brand-emerald-soft`, and `--brand-charcoal`, and use a concentric stamp-ring motif with an emerald foot band.
+
+--- | --- | --- |
+| Page background | `--background` | `#f5f5f5` |
+| Text | `--foreground` | `#0a0a0a` |
 | Main surface | `--card` | `#ffffff` |
-| Primary navy | `--primary` | `#002050` |
-| Orange accent/ring | `--accent`, `--ring` | `#f08010` |
-| Muted surface | `--muted` | `#eef3f8` |
-| Muted text | `--muted-foreground` | `#5f6673` |
-| Border | `--border` | `#d8dee8` |
+| Primary black | `--primary` | `#0a0a0a` |
+| Light grey accent | `--accent` | `#e8e8e8` |
+| Focus ring | `--ring` | `#0a0a0a` |
+| Muted surface | `--muted` | `#f0f0f0` |
+| Muted text | `--muted-foreground` | `#5c5c5c` |
+| Border | `--border` | `#e0e0e0` |
 | Success | `--success` | `#12805c` |
 | Warning | `--warning` | `#b7791f` |
 
-Auth-specific variables inside `.brand-auth-surface` include `--brand-navy`, `--brand-orange`, `--brand-orange-text`, and `--brand-charcoal`.
+Auth-specific variables inside `.brand-auth-surface` include `--brand-black`, `--brand-silver`, `--brand-gray-text`, and `--brand-charcoal`.
 
 ---
 
@@ -77,7 +101,7 @@ Auth-specific variables inside `.brand-auth-surface` include `--brand-navy`, `--
 Use chart variables for Recharts where possible:
 
 - `--chart-1` through `--chart-5` for general charts.
-- `--viz-revenue`, `--viz-cost`, `--viz-profit`, and `--viz-loss` for financial report series.
+- `--viz-revenue` (ink), `--viz-cost` (grey), `--viz-profit` (emerald), and `--viz-loss` (red) for financial report series. They separate by lightness as well as hue.
 
 These variables have separate light and dark values and were selected for readable contrast on card surfaces.
 
@@ -143,12 +167,12 @@ Use `components/ui/table.tsx`.
 
 ### Status Badges
 
-Existing app code uses tokenized colors plus semantic Tailwind palettes:
+Badges use tokens only:
 
-- Paid: emerald tint
-- Unpaid/loans: amber or orange tint
-- Low stock: red/destructive tint
-- Below cost: amber or destructive tint
+- Paid: `success` tint
+- Unpaid/loans: `warning` tint
+- Returned: neutral ink (`border-foreground/20 bg-muted text-foreground`)
+- Low stock: destructive tint
 - Admin/destructive actions: destructive variant
 
 Prefer existing badge patterns before adding a new palette.
@@ -158,7 +182,7 @@ Prefer existing badge patterns before adding a new palette.
 ## Rules
 
 - Prefer token utilities (`bg-card`, `text-muted-foreground`, `border-border`, `bg-primary`) over raw color classes.
-- Existing report cards use semantic palette classes for financial states; keep additions consistent with their current usage.
+- Metric cards use `lib/utils/metric-tones.ts`: white card, colored left rule and icon by meaning (`brand` money in, `ink` stock, `neutral` costs/counts, `attention` loans/returns, `negative` loss). Do not give metrics individual hues; PDFs use `METRIC_TONE_PRINT` for the same mapping.
 - Use `lucide-react` icons in buttons and navigation.
 - Keep operational layouts dense and scannable.
 - Do not introduce unrelated landing-page visual language into authenticated operations.

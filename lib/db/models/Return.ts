@@ -1,5 +1,6 @@
 // Persists returns and replacement details that affect inventory and reports.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const ReturnItemSchema = new Schema(
   {
@@ -19,7 +20,7 @@ const ReturnSchema = new Schema(
   {
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     // Links a return to the sale it reverses, so reports can attribute it to

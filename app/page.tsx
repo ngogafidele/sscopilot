@@ -68,8 +68,8 @@ export default function Home() {
           sizes="100vw"
           className="object-cover opacity-52"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,249,252,0.54)_0%,rgba(247,249,252,0.34)_48%,rgba(247,249,252,0.22)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--brand-navy)_6%,transparent),transparent_50%,color-mix(in_srgb,var(--brand-orange)_4%,transparent))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(244,246,245,0.6)_0%,rgba(244,246,245,0.38)_48%,rgba(244,246,245,0.2)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--brand-emerald)_10%,transparent),transparent_55%)]" />
       </div>
       <main className="mx-auto grid min-h-screen max-w-6xl items-center gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
         <section className="order-2 space-y-8 lg:order-1">
@@ -77,7 +77,7 @@ export default function Home() {
             <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/80 bg-white shadow-sm">
               <Image
                 src="/images/logo.png"
-                alt="Demo Inventory System logo"
+                alt="Supply and Service Copilot Ltd logo"
                 width={80}
                 height={80}
                 priority
@@ -85,10 +85,10 @@ export default function Home() {
               />
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase text-[var(--brand-orange-text)]">
-                Demo Inventory System
+              <p className="text-sm font-semibold uppercase text-[var(--brand-emerald-strong)]">
+                Supply and Service Copilot Ltd
               </p>
-              <h1 className="text-3xl font-semibold text-[var(--brand-navy)] sm:text-4xl">
+              <h1 className="text-3xl font-semibold text-[var(--brand-black)] sm:text-4xl">
                 Inventory control for every counter.
               </h1>
             </div>
@@ -96,15 +96,15 @@ export default function Home() {
 
           <div className="grid gap-3 sm:grid-cols-3">
             {[
-              "Track stock across stores",
+              "Track stock in real time",
               "Manage products and sales",
               "Review invoices and alerts",
             ].map((item) => (
               <div
                 key={item}
-                className="rounded-lg border border-border/80 bg-white/70 p-4 text-sm font-medium text-[var(--brand-navy)] shadow-sm"
+                className="rounded-lg border border-border/80 bg-white/70 p-4 text-sm font-medium text-[var(--brand-black)] shadow-sm"
               >
-                <PackageCheck className="mb-3 size-5 text-[var(--brand-orange-text)]" />
+                <PackageCheck className="mb-3 size-5 text-[var(--brand-emerald-strong)]" />
                 {item}
               </div>
             ))}
@@ -113,10 +113,10 @@ export default function Home() {
 
         <section className="order-1 rounded-xl border border-border/80 bg-card p-5 shadow-xl sm:p-7 lg:order-2">
           <div className="mb-6">
-            <div className="mb-3 flex size-10 items-center justify-center rounded-lg bg-[var(--brand-navy)] text-white">
+            <div className="mb-3 flex size-10 items-center justify-center rounded-lg bg-[var(--brand-emerald)] text-white">
               <KeyRound className="size-5" />
             </div>
-            <h2 className="text-2xl font-semibold text-[var(--brand-navy)]">
+            <h2 className="text-2xl font-semibold text-[var(--brand-black)]">
               Sign in
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -187,7 +187,7 @@ export default function Home() {
             </label>
 
             <Button
-              className="h-11 w-full bg-[var(--brand-navy)] text-white hover:bg-[var(--brand-navy)]/90"
+              className="h-11 w-full bg-[var(--brand-black)] text-white hover:bg-[var(--brand-black)]/90"
               disabled={isPending}
             >
               {isPending ? "Signing in..." : "Sign in"}
@@ -201,7 +201,7 @@ export default function Home() {
             <Button
               asChild
               variant="secondary"
-              className="mt-3 h-11 w-full border border-[var(--brand-orange)] bg-[var(--brand-orange)] font-semibold text-[var(--brand-navy)] hover:bg-[var(--brand-orange)]/90"
+              className="mt-3 h-11 w-full border border-[var(--brand-emerald)] bg-white/80 font-semibold text-[var(--brand-emerald-strong)] hover:bg-[var(--brand-emerald-soft)]"
             >
               <Link href="/setup-admin">
                 Get Started

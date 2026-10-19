@@ -1317,7 +1317,7 @@ export function SalesManager({
                                 {getStatusLabel(sale.paymentStatus)}
                               </span>
                               {getReturnStatusLabel(sale.returnStatus) ? (
-                                <span className="inline-flex rounded-full border border-sky-500/30 bg-sky-500/10 px-2 py-0.5 text-xs font-semibold text-sky-700">
+                                <span className="inline-flex rounded-full border border-foreground/20 bg-muted px-2 py-0.5 text-xs font-semibold text-foreground">
                                   {getReturnStatusLabel(sale.returnStatus)}
                                 </span>
                               ) : null}

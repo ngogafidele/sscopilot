@@ -1,10 +1,11 @@
 // Synchronizes unresolved low-stock alerts with current inventory levels.
 import { Alert } from "@/lib/db/models/Alert"
+import type { StoreKey } from "@/lib/utils/constants"
 
 export const LOW_STOCK_THRESHOLD = 0
 
 export async function syncLowStockAlert(params: {
-  store: "store1" | "store2"
+  store: StoreKey
   productId: string
   name: string
   sku: string

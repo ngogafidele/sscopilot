@@ -16,6 +16,7 @@ import {
   TrendingUp,
   Warehouse,
   Wallet,
+  type LucideIcon,
 } from "lucide-react"
 import { DashboardSkeleton } from "@/components/dashboard/dashboard-skeleton"
 import { formatCurrency } from "@/lib/utils/format"
@@ -29,9 +30,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import type { StoreKey } from "@/lib/utils/constants"
+import {
+  METRIC_CARD_BASE,
+  METRIC_TONE_CLASSES,
+  type MetricTone,
+} from "@/lib/utils/metric-tones"
 
 type DashboardStatsProps = {
-  store: "store1" | "store2"
+  store: StoreKey
   isAdmin: boolean
 }
 
@@ -116,97 +123,88 @@ export function DashboardStats({ store, isAdmin }: DashboardStatsProps) {
   }
 
   const profitToday = stats.profitToday ?? 0
-  const cards = [
+  const cards: Array<{
+    label: string
+    value: string | number
+    icon: LucideIcon
+    tone: MetricTone
+    adminOnly?: boolean
+  }> = [
     {
       label: "Products",
       value: stats.productCount ?? 0,
       icon: Boxes,
-      className: "border-lime-200 bg-lime-50 text-lime-950",
-      iconClassName: "text-lime-700",
+      tone: "ink",
       adminOnly: true,
     },
     {
       label: "Total Stock Value",
       value: formatCurrency(stats.stockValue ?? 0),
       icon: Warehouse,
-      className: "border-indigo-200 bg-indigo-50 text-indigo-950",
-      iconClassName: "text-indigo-700",
+      tone: "ink",
       adminOnly: true,
     },
     {
       label: "Sales Today",
       value: stats.salesToday,
       icon: ReceiptText,
-      className: "border-violet-200 bg-violet-50 text-violet-950",
-      iconClassName: "text-violet-700",
+      tone: "brand",
     },
     {
       label: "Revenue Today",
       value: formatCurrency(stats.revenueToday),
       icon: Coins,
-      className: "border-emerald-200 bg-emerald-50 text-emerald-950",
-      iconClassName: "text-emerald-700",
+      tone: "brand",
     },
     {
       label: "Today's Returns",
       value: `-${formatCurrency(stats.returnsToday)}`,
       icon: RotateCcw,
-      className: "border-red-200 bg-red-50 text-red-950",
-      iconClassName: "text-red-700",
+      tone: "attention",
     },
     {
       label: "Today's Loans",
       value: formatCurrency(stats.loansToday),
       icon: Clock,
-      className: "border-orange-200 bg-orange-50 text-orange-950",
-      iconClassName: "text-orange-700",
+      tone: "attention",
     },
     {
       label: "Cost of Sales",
       value: formatCurrency(stats.costOfSalesToday ?? 0),
       icon: Package,
-      className: "border-sky-200 bg-sky-50 text-sky-950",
-      iconClassName: "text-sky-700",
+      tone: "neutral",
       adminOnly: true,
     },
     {
       label: "Expenses Today",
       value: formatCurrency(stats.expensesToday),
       icon: Wallet,
-      className: "border-rose-200 bg-rose-50 text-rose-950",
-      iconClassName: "text-rose-700",
+      tone: "neutral",
     },
     {
       label: "Profit Today",
       value: formatCurrency(profitToday),
       icon: TrendingUp,
-      className:
-        profitToday >= 0
-          ? "border-teal-200 bg-teal-50 text-teal-950"
-          : "border-amber-200 bg-amber-50 text-amber-950",
-      iconClassName: profitToday >= 0 ? "text-teal-700" : "text-amber-700",
+      tone: profitToday >= 0 ? "brand" : "negative",
       adminOnly: true,
     },
     {
       label: "Cash Payments",
       value: formatCurrency(stats.paymentsByMethod.cash),
       icon: Banknote,
-      className: "border-green-200 bg-green-50 text-green-950",
-      iconClassName: "text-green-700",
+      tone: "brand",
     },
     {
       label: "Bank Payments",
       value: formatCurrency(stats.paymentsByMethod.bank),
       icon: Landmark,
-      className: "border-blue-200 bg-blue-50 text-blue-950",
-      iconClassName: "text-blue-700",
+      tone: "brand",
     },
     {
       label: "Mobile Payments",
       value: formatCurrency(stats.paymentsByMethod.mobile),
       icon: Smartphone,
-      className: "border-fuchsia-200 bg-fuchsia-50 text-fuchsia-950",
-      iconClassName: "text-fuchsia-700",
+      tone: "brand",
     },
   ]
   const visibleCards = isAdmin
@@ -221,13 +219,15 @@ export function DashboardStats({ store, isAdmin }: DashboardStatsProps) {
         {visibleCards.map((card) => (
           <div
             key={card.label}
-            className={cn("rounded-2xl border p-4 shadow-sm", card.className)}
+            className={cn(METRIC_CARD_BASE, METRIC_TONE_CLASSES[card.tone].card)}
           >
             <div className="flex items-center justify-between">
-              <p className="max-w-36 text-xs uppercase leading-4 tracking-[0.12em] opacity-70">
+              <p className="max-w-36 text-xs uppercase leading-4 tracking-[0.12em] text-muted-foreground">
                 {card.label}
               </p>
-              <card.icon className={cn("size-4", card.iconClassName)} />
+              <card.icon
+                className={cn("size-4", METRIC_TONE_CLASSES[card.tone].icon)}
+              />
             </div>
             <p className="mt-2 text-2xl font-semibold">{card.value}</p>
           </div>

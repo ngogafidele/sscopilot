@@ -1,5 +1,6 @@
 // Persists branch-owned products, pricing, and available quantities.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const ProductSchema = new Schema(
   {
@@ -16,7 +17,7 @@ const ProductSchema = new Schema(
     },
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
   },

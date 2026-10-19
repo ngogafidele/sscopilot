@@ -1,5 +1,6 @@
 // Persists paid and credit sales together with their item value snapshots.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const SaleItemSchema = new Schema(
   {
@@ -52,7 +53,7 @@ const SaleSchema = new Schema(
   {
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     items: { type: [SaleItemSchema], required: true },

@@ -224,7 +224,7 @@ export async function GET(request: NextRequest) {
         totalPaid,
         totalOutstanding,
       },
-      { name: "Demo Inventory System", address: STORE_ADDRESSES[store] }
+      { name: "Supply and Service Copilot Ltd", address: STORE_ADDRESSES[store] }
     )
 
     const slug = slugifyCustomerName(customerName) || "customer"

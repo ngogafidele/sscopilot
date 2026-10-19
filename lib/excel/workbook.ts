@@ -19,7 +19,7 @@ export type SheetColumn = {
 
 export function createWorkbook() {
   const workbook = new ExcelJS.Workbook()
-  workbook.creator = "Demo Inventory System"
+  workbook.creator = "Supply and Service Copilot Ltd"
   workbook.created = new Date()
   return workbook
 }

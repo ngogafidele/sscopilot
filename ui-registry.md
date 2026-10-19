@@ -1,19 +1,19 @@
 ### Sale Return Status Badge
 
 File: components/sales/sales-manager.tsx
-Last updated: 2026-08-22
+Last updated: 2026-10-19
 
 | Property | Class |
 | --- | --- |
-| Background | `bg-sky-500/10` |
-| Border | `border border-sky-500/30` |
+| Background | `bg-muted` |
+| Border | `border border-foreground/20` |
 | Border radius | `rounded-full` |
-| Text - primary | `text-xs font-semibold text-sky-700` |
+| Text - primary | `text-xs font-semibold text-foreground` |
 | Text - secondary | `text-muted-foreground` |
 | Spacing | `px-2 py-0.5`, parent `gap-1.5` |
 | Hover state | none |
 | Shadow | none |
-| Accent usage | Sky accent indicates a return state separate from payment status. |
+| Accent usage | Neutral ink badge keeps the return state distinct from the success/warning payment badge without adding a hue. |
 
 **Pattern notes:**
 Return badges sit under the payment badge inside the existing sale Status cell.
@@ -24,19 +24,19 @@ remain scannable.
 ### Dashboard Metric Cards
 
 File: components/dashboard/dashboard-stats.tsx
-Last updated: 2026-08-28
+Last updated: 2026-10-19
 
 | Property | Class |
 | --- | --- |
-| Background | Per-metric soft accent backgrounds such as `bg-violet-50`, `bg-emerald-50`, `bg-green-50` |
-| Border | `border` plus matching soft accent borders such as `border-violet-200` |
+| Background | `bg-card` (white) for every metric |
+| Border | `border border-l-4` with the left rule colored by tone (`METRIC_TONE_CLASSES` in `lib/utils/metric-tones.ts`) |
 | Border radius | `rounded-2xl` |
 | Text - primary | `text-2xl font-semibold` |
-| Text - secondary | `text-xs uppercase leading-4 tracking-[0.12em] opacity-70` |
+| Text - secondary | `text-xs uppercase leading-4 tracking-[0.12em] text-muted-foreground` |
 | Spacing | Card `p-4`, page section `space-y-14`, grid `gap-x-5 gap-y-12` |
 | Hover state | none |
 | Shadow | `shadow-sm` |
-| Accent usage | Each metric uses a distinct soft color pair and a matching Lucide icon color. |
+| Accent usage | Tone by meaning, not per metric: emerald money in, ink stock, grey costs/counts, amber attention, red loss. Icon takes the tone color. |
 
 **Pattern notes:**
 Dashboard cards remain the same visual component for admin and restricted users.

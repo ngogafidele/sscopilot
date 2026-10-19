@@ -5,6 +5,7 @@ import type * as Fs from "node:fs"
 import { STORE_LABELS, type StoreKey } from "@/lib/utils/constants"
 import { formatCurrency } from "@/lib/utils/format"
 import { formatInKigali } from "@/lib/utils/time"
+import { METRIC_TONE_PRINT, type MetricTone } from "@/lib/utils/metric-tones"
 
 const require = createRequire(import.meta.url)
 const {
@@ -105,11 +106,14 @@ type ReportPdfDocument = {
 }
 
 const logoPath = path.join(process.cwd(), "public", "images", "logo.png")
-const PRINT_TEXT = "#111827"
-const PRINT_MUTED_TEXT = "#1f2937"
-const PRINT_HEADER_TEXT = "#00183d"
-const HEADER_FILL = "#eef3f8"
-const ROW_FILL = "#fbfcfe"
+const PRINT_TEXT = "#0a0a0a"
+const PRINT_MUTED_TEXT = "#3f4441"
+const PRINT_HEADER_TEXT = "#0a0a0a"
+// Emerald signature rule under the document header (Ink & Emerald palette).
+const PRINT_BRAND = "#136b52"
+const HEADER_FILL = "#e7f2ee"
+const ROW_FILL = "#f7f9f8"
+const RULE_COLOR = "#dfe3e1"
 const TABLE_ROW_HEIGHT = 24
 const PAGE_LEFT = 48
 const PAGE_RIGHT = 793
@@ -203,13 +207,13 @@ function drawLogo(doc: ReportPdfDocument) {
   const logoBuffer = getLogoBuffer()
   try {
     if (!logoBuffer) throw new Error("Logo not found")
-    doc.image(logoBuffer, 48, 30, { fit: [118, 118] })
+    doc.image(logoBuffer, 48, 30, { fit: [72, 72] })
   } catch {
     doc
       .font("Helvetica-Bold")
       .fontSize(16)
       .fillColor(PRINT_HEADER_TEXT)
-      .text("Demo Inventory System", 48, 72, { width: 150 })
+      .text("Supply and Service Copilot Ltd", 48, 40, { width: 150 })
   }
 }
 
@@ -274,78 +278,66 @@ function drawEmptyRow(doc: ReportPdfDocument, y: number, text: string) {
 }
 
 function drawMetrics(doc: ReportPdfDocument, y: number, totals: ReturnType<typeof sumReports>) {
-  const metrics = [
+  const metrics: Array<{ label: string; value: string; tone: MetricTone }> = [
     {
       label: "Total Revenue",
       value: formatCurrency(totals.revenue),
-      fill: "#dff7ea",
-      border: "#7fc99a",
+      tone: "brand",
     },
     {
       label: "Cost of Sales",
       value: formatCurrency(totals.costOfSales),
-      fill: "#e0f2fe",
-      border: "#7bb7d7",
+      tone: "neutral",
     },
     {
       label: "Expenses",
       value: formatCurrency(totals.expenses),
-      fill: "#ffe3e6",
-      border: "#e58a96",
+      tone: "neutral",
     },
     {
       label: "Profit",
       value: formatCurrency(totals.profit),
-      fill: totals.profit >= 0 ? "#dcf7f0" : "#fff0cc",
-      border: totals.profit >= 0 ? "#72c7ad" : "#d9a43b",
+      tone: totals.profit >= 0 ? "brand" : "negative",
     },
     {
       label: "Inventory Cost",
       value: formatCurrency(totals.inventoryCost),
-      fill: "#e7ebff",
-      border: "#9ca9e8",
+      tone: "ink",
     },
     {
       label: "Inventory Retail",
       value: formatCurrency(totals.inventoryRetail),
-      fill: "#ddf6fb",
-      border: "#7bc7d5",
+      tone: "ink",
     },
     {
       label: "Sales Records",
       value: formatNumber(totals.sales),
-      fill: "#f0e7ff",
-      border: "#b79ae6",
+      tone: "brand",
     },
     {
       label: "Products",
       value: formatNumber(totals.products),
-      fill: "#e8f8d7",
-      border: "#a7d36b",
+      tone: "ink",
     },
     {
       label: "Loans",
       value: formatCurrency(totals.outstanding),
-      fill: totals.outstanding > 0 ? "#ffe9d6" : "#eef2f7",
-      border: totals.outstanding > 0 ? "#e4a166" : "#b9c3d0",
+      tone: totals.outstanding > 0 ? "attention" : "neutral",
     },
     {
       label: "Cash Payments",
       value: formatCurrency(totals.cash),
-      fill: "#dcf5e3",
-      border: "#7cc596",
+      tone: "brand",
     },
     {
       label: "Bank Payments",
       value: formatCurrency(totals.bank),
-      fill: "#dce9fb",
-      border: "#7ba3dd",
+      tone: "brand",
     },
     {
       label: "Mobile Money",
       value: formatCurrency(totals.mobile),
-      fill: "#f6e2fb",
-      border: "#c78ad9",
+      tone: "brand",
     },
   ]
 
@@ -357,14 +349,14 @@ function drawMetrics(doc: ReportPdfDocument, y: number, totals: ReturnType<typeo
 
     doc
       .rect(x, top, 174, 42)
-      .fillColor(metric.fill)
+      .fillColor("#ffffff")
       .fill()
       .rect(x, top, 174, 42)
       .lineWidth(1)
-      .strokeColor(metric.border)
+      .strokeColor(RULE_COLOR)
       .stroke()
       .rect(x, top, 4, 42)
-      .fillColor(metric.border)
+      .fillColor(METRIC_TONE_PRINT[metric.tone])
       .fill()
       .font("Helvetica-Bold")
       .fontSize(7)
@@ -412,27 +404,27 @@ export function generateReportPDF(payload: ReportPdfPayload) {
     .font("Helvetica-Bold")
     .fontSize(22)
     .fillColor(PRINT_TEXT)
-    .text(`${storeName} Report`, 460, 58, { align: "right", width: 330 })
+    .text(`${storeName} Report`, 460, 34, { align: "right", width: 330 })
     .font("Helvetica")
     .fontSize(10)
     .fillColor(PRINT_MUTED_TEXT)
-    .text(`Period: ${payload.fromLabel} to ${payload.toLabel}`, 460, 88, {
+    .text(`Period: ${payload.fromLabel} to ${payload.toLabel}`, 460, 62, {
       align: "right",
       width: 330,
     })
-    .text(`Generated: ${formatDateTime(payload.generatedAt)}`, 460, 104, {
+    .text(`Generated: ${formatDateTime(payload.generatedAt)}`, 460, 76, {
       align: "right",
       width: 330,
     })
 
   doc
-    .moveTo(PAGE_LEFT, 170)
-    .lineTo(PAGE_RIGHT, 170)
+    .moveTo(PAGE_LEFT, 116)
+    .lineTo(PAGE_RIGHT, 116)
     .lineWidth(1.5)
-    .strokeColor("#f08010")
+    .strokeColor(PRINT_BRAND)
     .stroke()
 
-  let y = drawMetrics(doc, 194, totals)
+  let y = drawMetrics(doc, 140, totals)
 
   y = drawSectionTitle(doc, "Store Summary", y)
   const summaryColumns = [
@@ -535,7 +527,7 @@ export function generateReportPDF(payload: ReportPdfPayload) {
   doc
     .moveTo(PAGE_LEFT, y)
     .lineTo(PAGE_RIGHT, y)
-    .strokeColor("#d8dee8")
+    .strokeColor(RULE_COLOR)
     .stroke()
     .font("Helvetica")
     .fontSize(8)

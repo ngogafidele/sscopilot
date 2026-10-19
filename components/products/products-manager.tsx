@@ -6,12 +6,14 @@ import { formatCurrency } from "@/lib/utils/format"
 import { formatKigaliDateInput } from "@/lib/utils/time"
 import {
   Activity,
+  Download,
   FileSpreadsheet,
   FileText,
   PackagePlus,
   Upload,
 } from "lucide-react"
 import { downloadFile } from "@/lib/utils/file-download"
+import { PRODUCT_IMPORT_COLUMNS } from "@/lib/excel/product-import-columns"
 import { Button } from "@/components/ui/button"
 import {
   ProductMonitorDialog,
@@ -135,6 +137,7 @@ export function ProductsManager({
   const [currentPage, setCurrentPage] = useState(1)
   const [catalogDownloading, setCatalogDownloading] = useState(false)
   const [excelDownloading, setExcelDownloading] = useState(false)
+  const [templateDownloading, setTemplateDownloading] = useState(false)
   const [importOpen, setImportOpen] = useState(false)
   const [importFile, setImportFile] = useState<File | null>(null)
   const [importing, setImporting] = useState(false)
@@ -452,6 +455,18 @@ export function ProductsManager({
     }
   }
 
+  const downloadImportTemplate = async () => {
+    setTemplateDownloading(true)
+    setImportError(null)
+    const message = await downloadFile(
+      "/api/products/import/template",
+      "product-import-template.xlsx",
+      "Failed to download the import template."
+    )
+    if (message) setImportError(message)
+    setTemplateDownloading(false)
+  }
+
   const downloadProductsExcel = async () => {
     setExcelDownloading(true)
     setError(null)
@@ -726,16 +741,44 @@ export function ProductsManager({
             <DialogTitle>Import products from Excel</DialogTitle>
           </DialogHeader>
           <div className="grid gap-3 text-sm">
-            <p className="text-muted-foreground">
-              The first sheet&apos;s first row must contain the column names{" "}
-              <strong>Product</strong>, <strong>Cost Price</strong> and{" "}
-              <strong>Selling Price</strong>. Optional columns: Unit (defaults
-              to pcs), Quantity, Low Stock Threshold, Supplier Name and
-              Supplier Phone. A file from Export Excel works as a template.
-            </p>
+            <div className="grid gap-2 rounded-lg border bg-muted/40 p-3">
+              <p>
+                Start from the template: required columns are marked in
+                emerald, optional ones in grey, and an Instructions sheet
+                explains each one.
+              </p>
+              <ul className="grid gap-1 text-xs">
+                <li>
+                  <span className="font-semibold text-brand">Required:</span>{" "}
+                  {PRODUCT_IMPORT_COLUMNS.filter((column) => column.required)
+                    .map((column) => column.label)
+                    .join(", ")}
+                </li>
+                <li>
+                  <span className="font-semibold text-muted-foreground">
+                    Optional:
+                  </span>{" "}
+                  {PRODUCT_IMPORT_COLUMNS.filter((column) => !column.required)
+                    .map((column) => column.label)
+                    .join(", ")}
+                </li>
+              </ul>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="justify-self-start"
+                onClick={downloadImportTemplate}
+                disabled={templateDownloading || importing}
+              >
+                <Download className="size-4" />
+                {templateDownloading ? "Preparing..." : "Download template"}
+              </Button>
+            </div>
             <p className="text-muted-foreground">
               Products whose name is already in the list are skipped, not
-              changed. SKUs are generated automatically.
+              changed. SKUs are generated automatically. A file from Export
+              Excel also works.
             </p>
             <label className="grid gap-1">
               Excel file (.xlsx)

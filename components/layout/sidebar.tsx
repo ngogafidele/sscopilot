@@ -32,7 +32,7 @@ export function Sidebar({ session }: { session: AuthSession }) {
             className={cn(
               "flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm font-medium transition",
               pathname === item.href
-                ? "bg-primary text-primary-foreground shadow-sm"
+                ? "bg-primary text-primary-foreground shadow-[inset_3px_0_0_0_var(--brand)]"
                 : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             )}
           >

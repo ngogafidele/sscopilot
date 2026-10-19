@@ -1,11 +1,12 @@
 // Persists branch operating expenses used in profitability reporting.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const ExpenseSchema = new Schema(
   {
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     description: { type: String, required: true, trim: true },

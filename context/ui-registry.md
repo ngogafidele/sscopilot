@@ -48,12 +48,12 @@ Files: `app/page.tsx`, `app/setup-admin/page.tsx`, `app/reset-password/page.tsx`
 | Property | Pattern |
 | --- | --- |
 | Surface | `.brand-auth-surface min-h-screen` |
-| Surface palette | `--brand-navy: #002050`, `--brand-orange: #f08010`, `--brand-charcoal: #505050` |
+| Surface palette | `--brand-black: #0a0a0a`, `--brand-emerald: #136b52`, `--brand-emerald-strong: #0d4d3b`, `--brand-emerald-soft: #e7f2ee`, `--brand-charcoal: #4a4f4c`; stamp-ring background motif and emerald foot band |
 | Background asset | `/images/auth-background.webp` where used by auth pages |
 | Logo asset | `/images/logo.png` |
 | Form card | `rounded-xl border border-border/80 bg-card/95 p-5 shadow-xl backdrop-blur sm:p-7` |
 | Input height | `h-11` on auth forms |
-| Primary action | Navy primary button or token `bg-primary text-primary-foreground` |
+| Primary action | Black primary button or token `bg-primary text-primary-foreground` |
 | Secondary action | Outline/token variants |
 
 Pattern notes: Auth screens are the only place for the richer branded surface. Do not carry the auth composition into the authenticated operational shell.
@@ -115,7 +115,7 @@ Files: `app/(dashboard)/reports/page.tsx`, `components/reports/report-charts.tsx
 | Property | Pattern |
 | --- | --- |
 | Filter form | `grid gap-3 rounded-2xl border border-border/80 bg-card p-4 shadow-sm md:grid-cols-[1fr_1fr_auto_auto]` |
-| Metric cards | `rounded-2xl border p-4 shadow-sm` with semantic color tint |
+| Metric cards | `METRIC_CARD_BASE` + `METRIC_TONE_CLASSES[tone]` from `lib/utils/metric-tones.ts` (white card, colored left rule) |
 | Report sections | `space-y-3 rounded-2xl border border-border/80 bg-card p-4 shadow-sm` |
 | Charts | Recharts using `--viz-*` and `--chart-*` variables |
 | Detail tables | Collapsible or section-level local tables |
@@ -166,7 +166,7 @@ Files: `lib/pdf/*.ts`
 | Library | PDFKit, server-only |
 | Assets | `/public/images/logo.png` and `/public/images/stamp.png` where supported |
 | Identity | Store label/address values from shared constants or route-level store info |
-| Palette | Current generators use local print-safe navy/orange/neutral constants |
+| Palette | Ink text `#0a0a0a`, muted `#3f4441`, emerald header rule `PRINT_BRAND` `#136b52`, soft-emerald table headers `#e7f2ee`, rules `#dfe3e1`; report metric cards use `METRIC_TONE_PRINT` |
 | Tables | Compact rows, alternating light fills, explicit totals |
 
 Pattern notes: Keep PDF code tolerant of missing image files. If shared PDF theme constants are introduced later, update this registry and all generators together.

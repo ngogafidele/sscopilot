@@ -76,11 +76,11 @@ const stampPath = path.join(process.cwd(), "public", "images", "stamp.jpg")
 const logoBox = {
   x: 42,
   y: 24,
-  width: 174,
-  height: 174,
+  width: 84,
+  height: 84,
   imageX: 48,
   imageY: 30,
-  imageFit: [162, 162] as [number, number],
+  imageFit: [72, 72] as [number, number],
 }
 
 const stampBox = {
@@ -91,16 +91,17 @@ const stampBox = {
 }
 
 const businessFooterLines = [
-  "Bank Account: xxxxxxx",
-  "TIN: xxxxxxx",
-  "Tel No: xxxxxxx",
+  "TIN: 146846113",
+  "Tel No: 0788 752310",
   "",
-  "Demo Inventory System",
+  "Supply and Service Copilot Ltd",
 ]
 
-const PRINT_TEXT = "#111827"
-const PRINT_MUTED_TEXT = "#1f2937"
-const PRINT_HEADER_TEXT = "#00183d"
+const PRINT_TEXT = "#0a0a0a"
+const PRINT_MUTED_TEXT = "#3f4441"
+const PRINT_HEADER_TEXT = "#0a0a0a"
+// Emerald signature rule under the document header (Ink & Emerald palette).
+const PRINT_BRAND = "#136b52"
 const TABLE_ROW_HEIGHT = 24
 
 function mutedText(doc: InvoicePdfDocument) {
@@ -156,7 +157,7 @@ function drawLogo(doc: InvoicePdfDocument, storeInfo: StoreInfo) {
         .font("Helvetica-Bold")
         .fontSize(16)
         .fillColor(PRINT_HEADER_TEXT)
-        .text(storeInfo.name ?? "Inventory", 48, 72, { width: 150 })
+        .text(storeInfo.name ?? "Inventory", 48, 40, { width: 150 })
     }
   }
 }
@@ -251,42 +252,42 @@ function writeInvoicePdf(
 
   boldText(doc)
     .fontSize(22)
-    .text(title, 340, 58, { align: "right" })
+    .text(title, 340, 34, { align: "right" })
   mutedText(doc)
     .fontSize(10)
-    .text(data.number, 340, 88, { align: "right" })
-    .text(`Date: ${formatDate(data.date)}`, 340, 104, { align: "right" })
+    .text(data.number, 340, 62, { align: "right" })
+    .text(`Date: ${formatDate(data.date)}`, 340, 76, { align: "right" })
 
   if (data.status) {
-    doc.text(`Status: ${data.status}`, 340, 120, { align: "right" })
+    doc.text(`Status: ${data.status}`, 340, 90, { align: "right" })
   }
 
   doc
-    .moveTo(48, 210)
-    .lineTo(547, 210)
+    .moveTo(48, 116)
+    .lineTo(547, 116)
     .lineWidth(1.5)
-    .strokeColor("#f08010")
+    .strokeColor(PRINT_BRAND)
     .stroke()
 
   boldText(doc)
     .fontSize(11)
-    .text(storeInfo.name ?? "Multi-Store Inventory", 48, 230)
+    .text(storeInfo.name ?? "Multi-Store Inventory", 48, 136)
   mutedText(doc)
     .fontSize(9)
-    .text(storeInfo.address ?? "", 48, 248)
-    .text(storeInfo.phone ?? "", 48, 262)
-    .text(storeInfo.email ?? "", 48, 276)
+    .text(storeInfo.address ?? "", 48, 154)
+    .text(storeInfo.phone ?? "", 48, 168)
+    .text(storeInfo.email ?? "", 48, 182)
 
   boldText(doc)
     .fontSize(11)
-    .text(recipientLabel, 330, 230)
+    .text(recipientLabel, 330, 136)
   mutedText(doc)
     .fontSize(9)
-    .text(data.customerName, 330, 248)
-    .text(data.customerEmail ?? "", 330, 262)
-    .text(data.customerPhone ?? "", 330, 276)
+    .text(data.customerName, 330, 154)
+    .text(data.customerEmail ?? "", 330, 168)
+    .text(data.customerPhone ?? "", 330, 182)
 
-  const tableTop = 320
+  const tableTop = 226
   const columns = {
     item: 54,
     quantity: 286,
@@ -296,7 +297,7 @@ function writeInvoicePdf(
 
   doc
     .rect(48, tableTop, 499, 24)
-    .fillColor("#eef3f8")
+    .fillColor("#e7f2ee")
     .fill()
     .font("Helvetica-Bold")
     .fillColor(PRINT_HEADER_TEXT)
@@ -319,7 +320,7 @@ function writeInvoicePdf(
     const sku = item.sku ? truncateToWidth(doc, item.sku, 210) : ""
 
     doc
-      .fillColor(index % 2 === 0 ? "#ffffff" : "#fbfcfe")
+      .fillColor(index % 2 === 0 ? "#ffffff" : "#f7f9f8")
       .rect(48, y - 7, 499, TABLE_ROW_HEIGHT)
       .fill()
       .font("Helvetica")
@@ -347,7 +348,7 @@ function writeInvoicePdf(
   doc
     .moveTo(48, y)
     .lineTo(547, y)
-    .strokeColor("#d8dee8")
+    .strokeColor("#dfe3e1")
     .stroke()
     .font("Helvetica-Bold")
     .fontSize(14)
@@ -412,6 +413,6 @@ export function generateProformaPDF(
     storeInfo,
     "Proforma To",
     businessFooterLines,
-    "Thank You For Doing Business With Demo Inventory System"
+    "Thank You For Doing Business With Supply and Service Copilot Ltd"
   )
 }

@@ -54,7 +54,7 @@ export function ReauthForm({
   }
 
   return (
-    // brand-auth-surface is what defines --brand-navy and the rest of the auth
+    // brand-auth-surface is what defines --brand-black and the rest of the auth
     // palette; without it those variables are unset and anything styled with
     // them renders unstyled. Every other auth screen wraps in it too.
     <main className="brand-auth-surface flex min-h-screen items-center justify-center p-4">

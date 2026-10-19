@@ -72,11 +72,13 @@ type StatementPdfDocument = {
 }
 
 const logoPath = path.join(process.cwd(), "public", "images", "logo.png")
-const PRINT_TEXT = "#111827"
-const PRINT_MUTED_TEXT = "#1f2937"
-const PRINT_HEADER_TEXT = "#00183d"
-const HEADER_FILL = "#eef3f8"
-const RULE_COLOR = "#d8dee8"
+const PRINT_TEXT = "#0a0a0a"
+const PRINT_MUTED_TEXT = "#3f4441"
+const PRINT_HEADER_TEXT = "#0a0a0a"
+// Emerald signature rule under the document header (Ink & Emerald palette).
+const PRINT_BRAND = "#136b52"
+const HEADER_FILL = "#e7f2ee"
+const RULE_COLOR = "#dfe3e1"
 
 const PAGE_LEFT = 48
 const PAGE_RIGHT = 547
@@ -100,13 +102,13 @@ function drawLogo(doc: StatementPdfDocument) {
   const logoBuffer = getLogoBuffer()
   try {
     if (!logoBuffer) throw new Error("Logo not found")
-    doc.image(logoBuffer, PAGE_LEFT, 30, { fit: [96, 96] })
+    doc.image(logoBuffer, PAGE_LEFT, 30, { fit: [72, 72] })
   } catch {
     doc
       .font("Helvetica-Bold")
       .fontSize(15)
       .fillColor(PRINT_HEADER_TEXT)
-      .text("Demo Inventory System", PAGE_LEFT, 60, { width: 160 })
+      .text("Supply and Service Copilot Ltd", PAGE_LEFT, 40, { width: 160 })
   }
 }
 
@@ -126,21 +128,28 @@ function drawHeader(
     .font("Helvetica-Bold")
     .fontSize(19)
     .fillColor(PRINT_TEXT)
-    .text(title, rightX, 44, { align: "right", width: rightWidth })
+    .text(title, rightX, 34, { align: "right", width: rightWidth })
     .font("Helvetica")
     .fontSize(10)
     .fillColor(PRINT_MUTED_TEXT)
-    .text(`${STORE_LABELS[store]} - ${STORE_ADDRESSES[store]}`, rightX, 70, {
+    .text(`${STORE_LABELS[store]} - ${STORE_ADDRESSES[store]}`, rightX, 60, {
       align: "right",
       width: rightWidth,
     })
-    .text(subtitle, rightX, 86, { align: "right", width: rightWidth })
-    .text(`Generated: ${formatDateTime(generatedAt)}`, rightX, 102, {
+    .text(subtitle, rightX, 74, { align: "right", width: rightWidth })
+    .text(`Generated: ${formatDateTime(generatedAt)}`, rightX, 88, {
       align: "right",
       width: rightWidth,
     })
 
-  return 140
+  doc
+    .moveTo(PAGE_LEFT, 108)
+    .lineTo(PAGE_RIGHT, 108)
+    .lineWidth(1.5)
+    .strokeColor(PRINT_BRAND)
+    .stroke()
+
+  return 124
 }
 
 function ensureSpace(doc: StatementPdfDocument, y: number, needed = ROW_HEIGHT) {

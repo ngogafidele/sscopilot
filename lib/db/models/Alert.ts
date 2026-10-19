@@ -1,11 +1,12 @@
 // Persists low-stock and custom operational alerts by branch.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const AlertSchema = new Schema(
   {
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     type: {

@@ -75,7 +75,7 @@ export async function GET(
         totalAmount: invoice.totalAmount,
         items,
       },
-      { name: "Demo Inventory System", address: STORE_ADDRESSES[store] }
+      { name: "Supply and Service Copilot Ltd", address: STORE_ADDRESSES[store] }
     )
 
     return new NextResponse(new Uint8Array(pdf), {

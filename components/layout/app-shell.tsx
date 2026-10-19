@@ -8,6 +8,7 @@ import type { AuthSession } from "@/lib/auth/session"
 import { Sidebar } from "@/components/layout/sidebar"
 import { LoanNotifications } from "@/components/layout/loan-notifications"
 import { StoreSwitcher } from "@/components/store-switcher"
+import { HAS_MULTIPLE_STORES } from "@/lib/utils/constants"
 import { LogoutButton } from "@/components/auth/logout-button"
 import { UserRound } from "lucide-react"
 
@@ -33,7 +34,7 @@ export function AppShell({
             <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white shadow-sm">
               <Image
                 src="/images/logo.png"
-                alt="Demo Inventory System logo"
+                alt="Supply and Service Copilot Ltd logo"
                 width={48}
                 height={48}
                 priority
@@ -42,7 +43,7 @@ export function AppShell({
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                Demo Inventory System
+                Supply and Service Copilot Ltd
               </p>
               <h1 className="text-xl font-semibold sm:text-2xl">
                 Operations Hub
@@ -64,7 +65,7 @@ export function AppShell({
                 </p>
               </div>
             </div>
-            {session.isAdmin ? (
+            {session.isAdmin && HAS_MULTIPLE_STORES ? (
               <StoreSwitcher
                 currentStore={currentStore}
                 availableStores={session.stores}

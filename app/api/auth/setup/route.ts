@@ -1,4 +1,4 @@
-// Creates the initial administrator and two-store session context.
+// Creates the initial administrator and their store session context.
 import { NextRequest, NextResponse } from "next/server"
 import { connectToDatabase } from "@/lib/db/connection"
 import { User } from "@/lib/db/models/User"
@@ -14,6 +14,7 @@ import {
   getAuthCookieOptions,
   type AuthSession,
 } from "@/lib/auth/session"
+import { DEFAULT_STORE, STORE_KEYS } from "@/lib/utils/constants"
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
       password: hashedPassword,
       isAdmin: true,
       role: "admin",
-      stores: ["store1", "store2"],
+      stores: [...STORE_KEYS],
       isActive: true,
       lastLogin: loginAt,
     })
@@ -58,8 +59,8 @@ export async function POST(request: NextRequest) {
       email: admin.email,
       isAdmin: true,
       role: "admin",
-      stores: ["store1", "store2"],
-      currentStore: "store1",
+      stores: [...STORE_KEYS],
+      currentStore: DEFAULT_STORE,
       loginLogId: loginLog._id.toString(),
       lastActivityAt: Date.now(),
       // Setting the password here counts as proving it, so the new admin is

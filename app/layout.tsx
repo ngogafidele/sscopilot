@@ -1,4 +1,4 @@
-// Defines root metadata and document structure for the demo inventory application.
+// Defines root metadata and document structure for the Supply and Service Copilot Ltd application.
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Demo Inventory System",
-  description: "Inventory management across two stores",
+  title: "Supply and Service Copilot Ltd",
+  description: "Inventory, sales, and invoicing for Supply and Service Copilot Ltd",
 };
 
 export default function RootLayout({

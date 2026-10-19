@@ -4,6 +4,7 @@
 // "deleted" version is a tombstone) sharing the original `groupId`, so a balance
 // sheet for a past date resolves to the version in effect on that date and never
 // changes retroactively.
+import { STORE_KEYS } from "@/lib/utils/constants"
 import mongoose, { Schema } from "mongoose"
 
 export const BALANCE_SHEET_CATEGORIES = [
@@ -20,7 +21,7 @@ const BalanceSheetItemSchema = new Schema(
   {
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     // Stable identity shared by every version of the same logical line item.

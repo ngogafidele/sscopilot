@@ -22,11 +22,11 @@ export default async function HomePage() {
   return (
     <div className="space-y-7">
       <div className="relative overflow-hidden rounded-2xl bg-primary p-5 text-primary-foreground shadow-sm sm:p-7">
-        <div className="absolute -right-16 -top-20 size-56 rounded-full border-24 border-accent/40" />
+        <div className="absolute -right-16 -top-20 size-56 rounded-full border-24 border-brand/45" />
         <div className="relative max-w-3xl">
           <div className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             <span className="h-px w-8 bg-accent" />
-            Demo Inventory System
+            Supply and Service Copilot Ltd
           </div>
           <h2 className="text-2xl font-semibold sm:text-3xl">
             Everything you need to run your inventory system.
@@ -49,7 +49,7 @@ export default async function HomePage() {
                 id={`${group}-heading`}
                 className="mb-3 flex items-center gap-2 text-lg font-semibold text-foreground"
               >
-                <span className="h-5 w-1 rounded-full bg-accent" />
+                <span className="h-5 w-1 rounded-full bg-brand" />
                 {group}
               </h3>
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">

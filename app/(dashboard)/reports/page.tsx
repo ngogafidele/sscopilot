@@ -10,7 +10,12 @@ import { Sale } from "@/lib/db/models/Sale"
 import { StockAdjustment } from "@/lib/db/models/StockAdjustment"
 import { Expense } from "@/lib/db/models/Expense"
 import { getPaymentMethodTotals } from "@/lib/db/payments"
-import { STORE_LABELS } from "@/lib/utils/constants"
+import { STORE_LABELS, type StoreKey } from "@/lib/utils/constants"
+import {
+  METRIC_CARD_BASE,
+  METRIC_TONE_CLASSES,
+  type MetricTone,
+} from "@/lib/utils/metric-tones"
 import { formatCurrency } from "@/lib/utils/format"
 import {
   KIGALI_TIME_ZONE,
@@ -38,7 +43,6 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-type StoreKey = "store1" | "store2"
 
 type StoreReport = {
   store: StoreKey
@@ -708,72 +712,66 @@ export default async function ReportsPage({
   const fromLabel = formatDateOnly(range.from)
   const toLabel = formatDateOnly(range.to)
   const paymentTotals = await getPaymentMethodTotals(currentStore, periodFilter)
-  const cards = [
+  const cards: Array<{ label: string; value: string; tone: MetricTone }> = [
     {
       label: "Total Revenue",
       value: formatCurrency(totals.revenue),
-      className: "border-emerald-200 bg-emerald-50 text-emerald-950",
+      tone: "brand",
     },
     {
       label: "Cost of Sales",
       value: formatCurrency(totals.costOfSales),
-      className: "border-sky-200 bg-sky-50 text-sky-950",
+      tone: "neutral",
     },
     {
       label: "Expenses",
       value: formatCurrency(totals.expenses),
-      className: "border-rose-200 bg-rose-50 text-rose-950",
+      tone: "neutral",
     },
     {
       label: "Profit",
       value: formatCurrency(totals.profit),
-      className:
-        totals.profit >= 0
-          ? "border-teal-200 bg-teal-50 text-teal-950"
-          : "border-amber-200 bg-amber-50 text-amber-950",
+      tone: totals.profit >= 0 ? "brand" : "negative",
     },
     {
       label: "Inventory Cost",
       value: formatCurrency(totals.inventoryCost),
-      className: "border-indigo-200 bg-indigo-50 text-indigo-950",
+      tone: "ink",
     },
     {
       label: "Inventory Retail",
       value: formatCurrency(totals.inventoryRetail),
-      className: "border-cyan-200 bg-cyan-50 text-cyan-950",
+      tone: "ink",
     },
     {
       label: "Sales Records",
       value: formatNumber(totals.sales),
-      className: "border-violet-200 bg-violet-50 text-violet-950",
+      tone: "brand",
     },
     {
       label: "Products",
       value: formatNumber(totals.products),
-      className: "border-lime-200 bg-lime-50 text-lime-950",
+      tone: "ink",
     },
     {
       label: "Loans",
       value: formatCurrency(totals.outstanding),
-      className:
-        totals.outstanding > 0
-          ? "border-orange-200 bg-orange-50 text-orange-950"
-          : "border-slate-200 bg-slate-50 text-slate-950",
+      tone: totals.outstanding > 0 ? "attention" : "neutral",
     },
     {
       label: "Cash Payments",
       value: formatCurrency(paymentTotals.cash),
-      className: "border-green-200 bg-green-50 text-green-950",
+      tone: "brand",
     },
     {
       label: "Bank Payments",
       value: formatCurrency(paymentTotals.bank),
-      className: "border-blue-200 bg-blue-50 text-blue-950",
+      tone: "brand",
     },
     {
       label: "Mobile Money Payments",
       value: formatCurrency(paymentTotals.mobile),
-      className: "border-fuchsia-200 bg-fuchsia-50 text-fuchsia-950",
+      tone: "brand",
     },
   ]
 
@@ -817,9 +815,9 @@ export default async function ReportsPage({
         {cards.map((card) => (
           <div
             key={card.label}
-            className={`rounded-2xl border p-4 shadow-sm ${card.className}`}
+            className={`${METRIC_CARD_BASE} ${METRIC_TONE_CLASSES[card.tone].card}`}
           >
-            <p className="text-xs uppercase tracking-[0.16em] opacity-70">
+            <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
               {card.label}
             </p>
             <p className="mt-2 text-2xl font-semibold">

@@ -2,7 +2,7 @@
 
 ## Overall Feel
 
-Demo Inventory System is an operational business tool. Screens should feel dense, calm, and practical. Prioritize scanability, quick data entry, predictable tables, and clear status indicators over decorative presentation.
+Supply and Service Copilot Ltd is an operational business tool. Screens should feel dense, calm, and practical. Prioritize scanability, quick data entry, predictable tables, and clear status indicators over decorative presentation.
 
 ---
 
@@ -11,7 +11,7 @@ Demo Inventory System is an operational business tool. Screens should feel dense
 - Authenticated non-home pages use the existing sticky header plus left/sidebar navigation.
 - `/home` is the authenticated workspace hub and intentionally hides the sidebar while presenting the same role-aware navigation as grouped cards.
 - The sidebar and home hub are role-aware. Admins see Dashboard, Users, operational screens, Stock Adjustments, Visual Reports, and Financial Reports. Non-admin users see Dashboard plus common operational screens.
-- Admins can switch between anonymized Store 1 and Store 2 from the header store switcher.
+- The header store switcher only appears when more than one store is configured; with the single Main Store it is hidden.
 - Active sidebar item uses `bg-primary text-primary-foreground shadow-sm`.
 - Inactive sidebar items use `text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground`.
 - Do not add a second top navigation model.
@@ -73,7 +73,7 @@ Use `space-y-5` or `space-y-6` for page sections. Use `rounded-2xl border border
 - Cards are functional containers, not decorative shells.
 - Use white/card surfaces for main sections.
 - Use muted tinted strips for totals, summaries, and calculated values.
-- Reports and financial statements may use semantic palette tints because existing report screens already do.
+- Metric cards on dashboard and reports use the shared tones in `lib/utils/metric-tones.ts`; do not introduce per-metric hues.
 - Product movement and report charts use Recharts and should prefer token colors (`--chart-*` and `--viz-*`) over hardcoded colors.
 - Low stock, unpaid, below-cost, overdue, and destructive states must be visually distinct.
 
@@ -81,7 +81,7 @@ Use `space-y-5` or `space-y-6` for page sections. Use `rounded-2xl border border
 
 ## Auth Screen
 
-The login, setup-admin, reset-password, and verify screens are the public or security-focused branded screens. They use `.brand-auth-surface`, `/images/auth-background.webp`, `/images/logo.png`, navy/orange brand variables, and larger authentication copy. Do not copy that richer style into the authenticated app shell.
+The login, setup-admin, reset-password, and verify screens are the public or security-focused branded screens. They use `.brand-auth-surface`, `/images/auth-background.webp`, `/images/logo.png`, Ink & Emerald brand variables, and larger authentication copy. Do not copy that richer style into the authenticated app shell.
 
 ---
 

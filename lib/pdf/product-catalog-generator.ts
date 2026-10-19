@@ -81,16 +81,18 @@ const logoPath = path.join(process.cwd(), "public", "images", "logo.png")
 const logoBox = {
   x: 42,
   y: 24,
-  width: 150,
-  height: 150,
+  width: 84,
+  height: 84,
   imageX: 48,
   imageY: 30,
-  imageFit: [138, 138] as [number, number],
+  imageFit: [72, 72] as [number, number],
 }
 
-const PRINT_TEXT = "#111827"
-const PRINT_MUTED_TEXT = "#1f2937"
-const PRINT_HEADER_TEXT = "#00183d"
+const PRINT_TEXT = "#0a0a0a"
+const PRINT_MUTED_TEXT = "#3f4441"
+const PRINT_HEADER_TEXT = "#0a0a0a"
+// Emerald signature rule under the document header (Ink & Emerald palette).
+const PRINT_BRAND = "#136b52"
 const TABLE_ROW_HEIGHT = 24
 
 function mutedText(doc: ProductCatalogPdfDocument) {
@@ -141,7 +143,7 @@ function drawLogo(doc: ProductCatalogPdfDocument, storeInfo: StoreInfo) {
         .font("Helvetica-Bold")
         .fontSize(16)
         .fillColor(PRINT_HEADER_TEXT)
-        .text(storeInfo.name ?? "Inventory", 48, 72, { width: 150 })
+        .text(storeInfo.name ?? "Inventory", 48, 40, { width: 150 })
     }
   }
 }
@@ -187,7 +189,7 @@ function drawTableHeader(doc: ProductCatalogPdfDocument, y: number) {
 
   doc
     .rect(48, y, 745, 24)
-    .fillColor("#eef3f8")
+    .fillColor("#e7f2ee")
     .fill()
     .font("Helvetica-Bold")
     .fillColor(PRINT_HEADER_TEXT)
@@ -241,37 +243,37 @@ export function generateProductCatalogPDF(
 
   drawLogo(doc, storeInfo)
 
-  boldText(doc).fontSize(22).text("Products Catalog", 520, 58, {
+  boldText(doc).fontSize(22).text("Products Catalog", 520, 34, {
     align: "right",
     width: 270,
   })
   mutedText(doc)
     .fontSize(10)
-    .text(`${payload.products.length} products`, 520, 88, {
+    .text(`${payload.products.length} products`, 520, 62, {
       align: "right",
       width: 270,
     })
-    .text(`Generated: ${formatDate(payload.generatedAt)}`, 520, 104, {
+    .text(`Generated: ${formatDate(payload.generatedAt)}`, 520, 76, {
       align: "right",
       width: 270,
     })
 
   doc
-    .moveTo(48, 188)
-    .lineTo(793, 188)
+    .moveTo(48, 116)
+    .lineTo(793, 116)
     .lineWidth(1.5)
-    .strokeColor("#f08010")
+    .strokeColor(PRINT_BRAND)
     .stroke()
 
-  boldText(doc).fontSize(11).text(storeInfo.name ?? "Multi-Store Inventory", 48, 210)
+  boldText(doc).fontSize(11).text(storeInfo.name ?? "Multi-Store Inventory", 48, 136)
   mutedText(doc)
     .fontSize(9)
-    .text(storeInfo.address ?? "", 48, 228)
-    .text(storeInfo.phone ?? "", 48, 242)
-    .text(storeInfo.email ?? "", 48, 256)
+    .text(storeInfo.address ?? "", 48, 154)
+    .text(storeInfo.phone ?? "", 48, 168)
+    .text(storeInfo.email ?? "", 48, 182)
 
   const columns = getColumns()
-  const tableTop = 296
+  const tableTop = 222
   drawTableHeader(doc, tableTop)
 
   let y = tableTop + 32
@@ -304,7 +306,7 @@ export function generateProductCatalogPDF(
     const price = truncateToWidth(doc, formatCurrency(product.price), 82)
 
     doc
-      .fillColor(index % 2 === 0 ? "#ffffff" : "#fbfcfe")
+      .fillColor(index % 2 === 0 ? "#ffffff" : "#f7f9f8")
       .rect(48, y - 7, 745, TABLE_ROW_HEIGHT)
       .fill()
       .font("Helvetica")
@@ -336,7 +338,7 @@ export function generateProductCatalogPDF(
   doc
     .moveTo(48, y)
     .lineTo(793, y)
-    .strokeColor("#d8dee8")
+    .strokeColor("#dfe3e1")
     .stroke()
     .font("Helvetica-Bold")
     .fontSize(10)

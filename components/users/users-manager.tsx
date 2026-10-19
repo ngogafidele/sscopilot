@@ -28,10 +28,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { STORE_LABELS } from "@/lib/utils/constants"
+import {
+  DEFAULT_STORE,
+  HAS_MULTIPLE_STORES,
+  STORE_KEYS,
+  STORE_LABELS,
+  type StoreKey,
+} from "@/lib/utils/constants"
 import { formatInKigali } from "@/lib/utils/time"
 
-type StoreKey = "store1" | "store2"
 type UserRole = "admin" | "manager" | "staff"
 
 type UserClient = {
@@ -76,7 +81,7 @@ const emptyForm: FormState = {
   email: "",
   password: "",
   role: "staff",
-  store: "store1",
+  store: DEFAULT_STORE,
   isActive: true,
 }
 
@@ -289,26 +294,31 @@ export function UsersManager({
                   </SelectContent>
                 </Select>
               </label>
-              <label className="grid gap-1 text-sm">
-                Store
-                <Select
-                  value={formState.store}
-                  onValueChange={(value) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      store: value as StoreKey,
-                    }))
-                  }
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select store" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="store1">{STORE_LABELS.store1}</SelectItem>
-                    <SelectItem value="store2">{STORE_LABELS.store2}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </label>
+              {HAS_MULTIPLE_STORES ? (
+                <label className="grid gap-1 text-sm">
+                  Store
+                  <Select
+                    value={formState.store}
+                    onValueChange={(value) =>
+                      setFormState((prev) => ({
+                        ...prev,
+                        store: value as StoreKey,
+                      }))
+                    }
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select store" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {STORE_KEYS.map((store) => (
+                        <SelectItem key={store} value={store}>
+                          {STORE_LABELS[store]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </label>
+              ) : null}
               <label className="flex items-center gap-2 text-sm">
                 <input
                   type="checkbox"
@@ -342,7 +352,7 @@ export function UsersManager({
             <TableHead>Name</TableHead>
             <TableHead>Email or username</TableHead>
             <TableHead>Role</TableHead>
-            <TableHead>Stores</TableHead>
+            {HAS_MULTIPLE_STORES ? <TableHead>Stores</TableHead> : null}
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
@@ -360,9 +370,14 @@ export function UsersManager({
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell className="capitalize">{user.role}</TableCell>
-              <TableCell>
-                {user.stores.map((store) => STORE_LABELS[store]).join(", ")}
-              </TableCell>
+              {HAS_MULTIPLE_STORES ? (
+                <TableCell>
+                  {user.stores
+                    .filter((store) => store in STORE_LABELS)
+                    .map((store) => STORE_LABELS[store])
+                    .join(", ")}
+                </TableCell>
+              ) : null}
               <TableCell>{user.isActive ? "Active" : "Inactive"}</TableCell>
               <TableCell className="text-right">
                 <div className="flex flex-wrap justify-end gap-2">

@@ -5,13 +5,14 @@ import { UserLoginLog } from "@/lib/db/models/UserLoginLog"
 import { redirect } from "next/navigation"
 import { requireServerSession } from "@/lib/auth/server"
 import { UsersManager } from "@/components/users/users-manager"
+import type { StoreKey } from "@/lib/utils/constants"
 
 type UsersPageUser = {
   _id: { toString(): string }
   name: string
   email: string
   role: "admin" | "manager" | "staff"
-  stores: Array<"store1" | "store2">
+  stores: Array<StoreKey>
   isActive: boolean
   isAdmin: boolean
   createdAt?: Date

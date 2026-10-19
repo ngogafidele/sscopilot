@@ -1,11 +1,12 @@
 // Persists supplier product receipts that increase branch stock.
 import mongoose, { Schema } from "mongoose"
+import { STORE_KEYS } from "@/lib/utils/constants"
 
 const ProductReceiptSchema = new Schema(
   {
     store: {
       type: String,
-      enum: ["store1", "store2"],
+      enum: [...STORE_KEYS],
       required: true,
     },
     productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },

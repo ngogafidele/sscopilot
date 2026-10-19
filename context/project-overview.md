@@ -2,7 +2,7 @@
 
 ## About The Project
 
-Demo Inventory System is a two-store inventory, sales, invoicing, receivables, expense, alert, and reporting application for a physical-goods business. The visible store identity is intentionally anonymized as `Store 1` and `Store 2`.
+Supply and Service Copilot Ltd is a single-store inventory, sales, invoicing, receivables, expense, alert, and reporting application for a physical-goods business. The store is labelled `Main Store`.
 
 The app is implemented as a Next.js 16 App Router project with React 19, MongoDB/Mongoose persistence, JWT cookie sessions, Zod validation, Tailwind CSS 4 plus local UI primitives, Recharts visualizations, and PDFKit-generated documents.
 
@@ -14,10 +14,9 @@ Application data is isolated by store.
 
 | Internal Key | Store | Document Address |
 | --- | --- | --- |
-| `store1` | Store 1 | `xxxxxxx` |
-| `store2` | Store 2 | `xxxxxxx` |
+| `store1` | Main Store | `xxxxxxx` |
 
-Users carry an allowed `stores` list in their session. Administrators can switch the active store from the authenticated header; non-admin users operate in their assigned store. Route handlers resolve the store from the request/session and reject stores that are not allowed for the current user.
+The business runs a single store. Every record is still tagged with the store key `store1` and every query is scoped to it, so a second store can be added later by adding a key, label, and address in `lib/utils/constants.ts`. The admin store switcher and the user-management store picker only appear when more than one store is configured. Users still carry an allowed `stores` list in their session, and route handlers resolve the store from the request/session and reject stores that are not allowed for the current user. On login, retired store keys (such as the former `store2`) are dropped from the user record, and users left without a store are assigned to `store1`.
 
 ---
 
@@ -50,15 +49,15 @@ Users carry an allowed `stores` list in their session. Administrators can switch
 
 1. An admin creates the first account from `/setup-admin`.
 2. Users sign in from `/` with email and password.
-3. The authenticated shell wraps the workspace hub and operational pages with a sticky header, loan notifications, user badge, optional admin store switcher, logout action, and a role-aware sidebar on non-home pages.
+3. The authenticated shell wraps the workspace hub and operational pages with a sticky header, loan notifications, user badge, logout action, and a role-aware sidebar on non-home pages.
 4. Staff and managers use daily workflows for products, sales, returns, invoices, proformas, expenses, loans, and alerts within their assigned store.
-5. Admins additionally access dashboard, reports, financial statements, users, stock adjustments, product administration, correction edits, destructive actions, and store switching.
+5. Admins additionally access dashboard, reports, financial statements, users, stock adjustments, product administration, correction edits, and destructive actions.
 
 ---
 
 ## Business Capabilities
 
-- Manage branch-specific products, generated SKUs, categories, units, quantities, low-stock thresholds, cost prices, selling prices, and supplier receipt context.
+- Manage products, generated SKUs, categories, units, quantities, low-stock thresholds, cost prices, selling prices, and supplier receipt context.
 - Receive stock with supplier details, received date, quantity, unit cost, and total cost.
 - Record paid sales through cash, bank, or mobile money.
 - Record unpaid sales as customer loans with expected payment dates.
@@ -74,7 +73,7 @@ Users carry an allowed `stores` list in their session. Administrators can switch
 
 | Role | Access Pattern |
 | --- | --- |
-| Admin | Full access, including dashboard, reports, financial statements, users, stock adjustments, product management, store switching, and corrective edits/deletes. |
+| Admin | Full access, including dashboard, reports, financial statements, users, stock adjustments, product management, and corrective edits/deletes. |
 | Manager | Assigned-store operational workflows where permitted by routes and UI. |
 | Staff | Assigned-store operational workflows without admin-only management functions. |
 
@@ -93,4 +92,4 @@ Admin idle timeout is 1 hour, staff/manager idle timeout is 6 hours, and strict 
 - Unpaid sales require customer and expected payment details.
 - Loans remain sales: goods leave stock when issued, not when the loan is collected.
 - Report calculations and report PDFs use the same revenue, return, expense, and inventory semantics.
-- Customer-facing documents use the anonymized Demo Inventory System identity and branch address values.
+- Customer-facing documents use the Supply and Service Copilot Ltd identity and branch address values.

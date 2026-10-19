@@ -30,6 +30,10 @@
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-strong: var(--brand-strong);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-muted-foreground: var(--muted-foreground);
@@ -51,86 +55,102 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* "Ink & Emerald": the black-and-white company stamp carries the identity
+   (black primary actions, white surfaces, neutral greys), and a single deep
+   emerald, tuned to the green racking in the auth photo, is the signature
+   accent for highlights, focus, active navigation, and money-in figures.
+   Warning and destructive stay chromatic because they encode meaning. */
 :root {
-  --background: #f7f9fc;
-  --foreground: #111827;
+  --background: #f4f6f5;
+  --foreground: #0a0a0a;
   --card: #ffffff;
-  --card-foreground: #111827;
+  --card-foreground: #0a0a0a;
   --popover: #ffffff;
-  --popover-foreground: #111827;
-  --primary: #002050;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
   --primary-foreground: #ffffff;
-  --secondary: #edf2f8;
-  --secondary-foreground: #00183d;
-  --muted: #eef3f8;
-  --muted-foreground: #5f6673;
-  --accent: #f08010;
-  --accent-foreground: #ffffff;
-  --success: #12805c;
-  --warning: #b7791f;
+  --secondary: #eef1ef;
+  --secondary-foreground: #0a0a0a;
+  --muted: #eef1ef;
+  --muted-foreground: #565c59;
+  --brand: #136b52;
+  --brand-foreground: #ffffff;
+  --brand-soft: #e7f2ee;
+  --brand-strong: #0d4d3b;
+  --accent: var(--brand-soft);
+  --accent-foreground: var(--brand-strong);
+  --success: #136b52;
+  --warning: #b45309;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #d8dee8;
-  --input: #cbd7e6;
-  --ring: #f08010;
-  --chart-1: #002050;
-  --chart-2: #f08010;
-  --chart-3: #3a5578;
-  --chart-4: #505050;
-  --chart-5: #f4a340;
+  --border: #dfe3e1;
+  --input: #cfd5d2;
+  --ring: #136b52;
+  --chart-1: #136b52;
+  --chart-2: #8c8c8c;
+  --chart-3: #0a0a0a;
+  --chart-4: #5ea98f;
+  --chart-5: #cfd5d2;
   --radius: 0.8rem;
   --sidebar: #ffffff;
-  --sidebar-foreground: #111827;
-  --sidebar-primary: #002050;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #0a0a0a;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #eef3f8;
-  --sidebar-accent-foreground: #00183d;
-  --sidebar-border: #d8dee8;
-  --sidebar-ring: #f08010;
-  /* Chart series colors validated for CVD separation and 3:1 contrast on the light card surface. */
-  --viz-revenue: #1c5cab;
-  --viz-cost: #eb6834;
-  --viz-profit: #006300;
-  --viz-loss: #d03b3b;
+  --sidebar-accent: var(--brand-soft);
+  --sidebar-accent-foreground: var(--brand-strong);
+  --sidebar-border: #dfe3e1;
+  --sidebar-ring: #136b52;
+  /* Financial chart series: ink, grey, and emerald separate by lightness as
+     well as hue, so they stay distinct for color-vision deficiency; each has
+     at least 3:1 contrast on the white card. Loss replaces profit, never sits
+     beside it. */
+  --viz-revenue: #0a0a0a;
+  --viz-cost: #8c8c8c;
+  --viz-profit: #136b52;
+  --viz-loss: #c62828;
 }
 
 .dark {
-  --background: #061225;
-  --foreground: #f7f9fc;
-  --card: #0b1a33;
-  --card-foreground: #f7f9fc;
-  --popover: #0b1a33;
-  --popover-foreground: #f7f9fc;
-  --primary: #f08010;
-  --primary-foreground: #061225;
-  --secondary: #102849;
-  --secondary-foreground: #f7f9fc;
-  --muted: #102849;
-  --muted-foreground: #b8c2d1;
-  --accent: #f08010;
-  --accent-foreground: #061225;
-  --success: #34d39e;
+  --background: #0b0d0c;
+  --foreground: #f5f7f6;
+  --card: #151917;
+  --card-foreground: #f5f7f6;
+  --popover: #151917;
+  --popover-foreground: #f5f7f6;
+  --primary: #f5f7f6;
+  --primary-foreground: #0a0a0a;
+  --secondary: #222826;
+  --secondary-foreground: #f5f7f6;
+  --muted: #222826;
+  --muted-foreground: #a3aba7;
+  --brand: #3fbf98;
+  --brand-foreground: #0a0a0a;
+  --brand-soft: #12332a;
+  --brand-strong: #8fe0c5;
+  --accent: var(--brand-soft);
+  --accent-foreground: var(--brand-strong);
+  --success: #3fbf98;
   --warning: #f0b429;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: #1f3555;
-  --input: #2a4164;
-  --ring: #f08010;
-  --chart-1: #f08010;
-  --chart-2: #7fa1cd;
-  --chart-3: #f4a340;
-  --chart-4: #b8c2d1;
-  --chart-5: #ffffff;
-  --sidebar: #0b1a33;
-  --sidebar-foreground: #f7f9fc;
-  --sidebar-primary: #f08010;
-  --sidebar-primary-foreground: #061225;
-  --sidebar-accent: #102849;
-  --sidebar-accent-foreground: #f7f9fc;
-  --sidebar-border: #1f3555;
-  --sidebar-ring: #f08010;
-  /* Chart series colors re-stepped for the dark card surface (#0b1a33), validated as a set. */
-  --viz-revenue: #3987e5;
-  --viz-cost: #d95926;
-  --viz-profit: #00a651;
+  --border: #2a302d;
+  --input: #36403b;
+  --ring: #3fbf98;
+  --chart-1: #3fbf98;
+  --chart-2: #8c8c8c;
+  --chart-3: #f5f7f6;
+  --chart-4: #2f8a6e;
+  --chart-5: #4a524e;
+  --sidebar: #151917;
+  --sidebar-foreground: #f5f7f6;
+  --sidebar-primary: #f5f7f6;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: var(--brand-soft);
+  --sidebar-accent-foreground: var(--brand-strong);
+  --sidebar-border: #2a302d;
+  --sidebar-ring: #3fbf98;
+  /* Same ink / grey / emerald roles, re-stepped for the dark card surface. */
+  --viz-revenue: #f5f7f6;
+  --viz-cost: #8c8c8c;
+  --viz-profit: #3fbf98;
   --viz-loss: #e66767;
 }
 
@@ -140,8 +160,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 38%),
-      radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 36%);
+    background-image: radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--brand) 7%, transparent), transparent 42%);
     background-attachment: fixed;
   }
   html {
@@ -165,69 +184,56 @@
     isolation: isolate;
     overflow: hidden;
     color-scheme: light;
-    --brand-navy: #002050;
-    --brand-orange: #f08010;
-    --brand-orange-text: #9a4b00;
-    --brand-charcoal: #505050;
-    --background: #f7f9fc;
-    --foreground: #111827;
+    --brand-black: #0a0a0a;
+    --brand-emerald: #136b52;
+    --brand-emerald-strong: #0d4d3b;
+    --brand-emerald-soft: #e7f2ee;
+    --brand-charcoal: #4a4f4c;
+    --background: #f4f6f5;
+    --foreground: #0a0a0a;
     --card: #ffffff;
-    --card-foreground: #111827;
-    --primary: var(--brand-navy);
+    --card-foreground: #0a0a0a;
+    --primary: var(--brand-black);
     --primary-foreground: #ffffff;
-    --secondary: #eef3f8;
-    --secondary-foreground: var(--brand-navy);
-    --muted: #eef3f8;
-    --muted-foreground: #5f6673;
-    --accent: var(--brand-orange);
-    --accent-foreground: #ffffff;
-    --border: #d8dee8;
-    --input: #cbd7e6;
-    --ring: var(--brand-orange);
+    --secondary: #eef1ef;
+    --secondary-foreground: var(--brand-black);
+    --muted: #eef1ef;
+    --muted-foreground: #565c59;
+    --accent: var(--brand-emerald-soft);
+    --accent-foreground: var(--brand-emerald-strong);
+    --border: #dfe3e1;
+    --input: #cfd5d2;
+    --ring: var(--brand-emerald);
 
-    background:
-      linear-gradient(115deg, transparent 0 58%, color-mix(in srgb, var(--brand-navy) 8%, transparent) 58% 74%, transparent 74%),
-      linear-gradient(155deg, color-mix(in srgb, var(--brand-orange) 12%, transparent) 0 16%, transparent 16%),
-      linear-gradient(90deg, color-mix(in srgb, var(--brand-navy) 7%, transparent) 1px, transparent 1px),
-      linear-gradient(color-mix(in srgb, var(--brand-navy) 7%, transparent) 1px, transparent 1px),
-      linear-gradient(135deg, #ffffff 0%, #f8fafc 42%, #edf3f9 100%);
-    background-size: auto, auto, 36px 36px, 36px 36px, auto;
+    background: linear-gradient(160deg, #ffffff 0%, #f4f6f5 55%, #e9efec 100%);
     color: var(--foreground);
   }
 
+  /* Concentric rings echo the round company stamp in the logo. */
   .brand-auth-surface::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background:
-      repeating-linear-gradient(
-        135deg,
-        transparent 0 112px,
-        color-mix(in srgb, var(--brand-orange) 18%, transparent) 112px 114px,
-        transparent 114px 228px
-      ),
-      linear-gradient(
-        90deg,
-        color-mix(in srgb, var(--brand-navy) 11%, transparent),
-        transparent 28% 72%,
-        color-mix(in srgb, var(--brand-orange) 10%, transparent)
-      );
-    opacity: 0.42;
+    background: repeating-radial-gradient(
+      circle at 92% 8%,
+      transparent 0 46px,
+      color-mix(in srgb, var(--brand-black) 9%, transparent) 46px 47px
+    );
+    mask-image: radial-gradient(circle at 92% 8%, #000 0, transparent 62%);
+    opacity: 0.7;
   }
 
+  /* A solid emerald band anchors the page foot, like ink at a stamp edge. */
   .brand-auth-surface::after {
     content: "";
     position: absolute;
     inset: auto 0 0;
     z-index: -1;
-    height: 7rem;
+    height: 0.5rem;
     pointer-events: none;
-    background:
-      linear-gradient(90deg, var(--brand-orange) 0 8rem, transparent 8rem),
-      linear-gradient(90deg, transparent 0 10rem, color-mix(in srgb, var(--brand-navy) 18%, transparent) 10rem 100%);
-    opacity: 0.22;
+    background: linear-gradient(90deg, var(--brand-emerald) 0 62%, var(--brand-black) 62% 100%);
   }
 
   .brand-auth-surface > * {
